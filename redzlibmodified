@@ -1778,7 +1778,7 @@ function redzlib:MakeWindow(Configs)
 		end
 		
 		local TabSelect = Make("Button", MainScroll, {
-			Size = UDim2.new(5, 0, 0, 28)
+			Size = UDim2.new(1, 0, 0, 34)
 		})Make("Corner", TabSelect)
 		
 		local LabelTitle = InsertTheme(Create("TextLabel", TabSelect, {
