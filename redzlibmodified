@@ -1788,7 +1788,7 @@ function redzlib:MakeWindow(Configs)
 			Font = Enum.Font.GothamMedium,
 			Text = TName,
 			TextColor3 = Theme["Color Text"],
-			TextSize = 20,
+			TextSize = 15,
 			TextXAlignment = Enum.TextXAlignment.Left,
 			TextTransparency = (FirstTab and 0.3) or 0,
 			TextTruncate = "AtEnd"
@@ -1796,7 +1796,7 @@ function redzlib:MakeWindow(Configs)
 		
 		local LabelIcon = InsertTheme(Create("ImageLabel", TabSelect, {
 			Position = UDim2.new(0, 8, 0.5),
-			Size = UDim2.new(0, 23, 0, 23),
+			Size = UDim2.new(0, 15, 0, 15),
 			AnchorPoint = Vector2.new(0, 0.5),
 			Image = TIcon or "",
 			BackgroundTransparency = 1,
@@ -1804,7 +1804,7 @@ function redzlib:MakeWindow(Configs)
 		}), "Text")
 		
 		local Selected = InsertTheme(Create("Frame", TabSelect, {
-			Size = FirstTab and UDim2.new(0, 4, 0, 4) or UDim2.new(0, 4, 0, 13),
+			Size = FirstTab and UDim2.new(0, 8, 0, 4) or UDim2.new(0, 8, 0, 13),
 			Position = UDim2.new(0, 1, 0.5),
 			AnchorPoint = Vector2.new(0, 0.5),
 			BackgroundColor3 = Theme["Color Theme"],
