@@ -1778,7 +1778,7 @@ function redzlib:MakeWindow(Configs)
 		end
 		
 		local TabSelect = Make("Button", MainScroll, {
-			Size = UDim2.new(4, 0, 0, 60)
+			Size = UDim2.new(2, 0, 0, 40)
 		})Make("Corner", TabSelect)
 		
 		local LabelTitle = InsertTheme(Create("TextLabel", TabSelect, {
@@ -1796,7 +1796,7 @@ function redzlib:MakeWindow(Configs)
 		
 		local LabelIcon = InsertTheme(Create("ImageLabel", TabSelect, {
 			Position = UDim2.new(0, 8, 0.5),
-			Size = UDim2.new(0, 13, 0, 13),
+			Size = UDim2.new(0, 26, 0, 26),
 			AnchorPoint = Vector2.new(0, 0.5),
 			Image = TIcon or "",
 			BackgroundTransparency = 1,
