@@ -1831,7 +1831,7 @@ function redzlib:MakeWindow(Configs)
 				PaddingTop = UDim.new(0, 10),
 				PaddingBottom = UDim.new(0, 10)
 			}), Create("UIListLayout", {
-				Padding = UDim.new(0, 17)
+				Padding = UDim.new(0, 14)
 			})
 		}), "ScrollBar")
 		
