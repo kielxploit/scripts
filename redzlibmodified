@@ -52,7 +52,7 @@ local redzlib = {
 	},
 	Save = {
 		UISize = {550, 380},
-		TabSize = 185,
+		TabSize = 170,
 		Theme = "Darker"
 	},
 	Settings = {},
@@ -1831,7 +1831,7 @@ function redzlib:MakeWindow(Configs)
 				PaddingTop = UDim.new(0, 10),
 				PaddingBottom = UDim.new(0, 10)
 			}), Create("UIListLayout", {
-				Padding = UDim.new(0, 14)
+				Padding = UDim.new(0, 12)
 			})
 		}), "ScrollBar")
 		
