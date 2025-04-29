@@ -1455,7 +1455,7 @@ function redzlib:MakeWindow(Configs)
 		AutomaticSize = "XY",
 		Text = WTitle,
 		TextXAlignment = "Left",
-		TextSize = 12,
+		TextSize = 17,
 		TextColor3 = Theme["Color Text"],
 		BackgroundTransparency = 1,
 		Font = Enum.Font.GothamMedium,
@@ -1471,7 +1471,7 @@ function redzlib:MakeWindow(Configs)
 			BackgroundTransparency = 1,
 			TextXAlignment = "Left",
 			TextYAlignment = "Bottom",
-			TextSize = 8,
+			TextSize = 12,
 			Font = Enum.Font.Gotham,
 			Name = "SubTitle"
 		}), "DarkText")
@@ -1616,7 +1616,7 @@ function redzlib:MakeWindow(Configs)
 	end
 	function Window:AddMinimizeButton(Configs)
 		local Button = MakeDrag(Create("ImageButton", ScreenGui, {
-			Size = UDim2.fromOffset(70, 70),
+			Size = UDim2.fromOffset(60, 60),
 			Position = UDim2.fromScale(0.15, 0.15),
 			BackgroundTransparency = 1,
 			BackgroundColor3 = Theme["Color Hub 2"],
