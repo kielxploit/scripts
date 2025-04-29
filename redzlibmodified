@@ -1804,7 +1804,7 @@ function redzlib:MakeWindow(Configs)
 		}), "Text")
 		
 		local Selected = InsertTheme(Create("Frame", TabSelect, {
-			Size = FirstTab and UDim2.new(0, 4, 0, 4) or UDim2.new(0, 4, 0, 13),
+			Size = FirstTab and UDim2.new(0, 4, 0, 15) or UDim2.new(0, 4, 0, 15),
 			Position = UDim2.new(0, 1, 0.5),
 			AnchorPoint = Vector2.new(0, 0.5),
 			BackgroundColor3 = Theme["Color Theme"],
@@ -1831,7 +1831,7 @@ function redzlib:MakeWindow(Configs)
 				PaddingTop = UDim.new(0, 10),
 				PaddingBottom = UDim.new(0, 10)
 			}), Create("UIListLayout", {
-				Padding = UDim.new(0, 7)
+				Padding = UDim.new(0, 10)
 			})
 		}), "ScrollBar")
 		
