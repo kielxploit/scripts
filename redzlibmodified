@@ -1783,7 +1783,7 @@ function redzlib:MakeWindow(Configs)
 		
 		local LabelTitle = InsertTheme(Create("TextLabel", TabSelect, {
 			Size = UDim2.new(1, TIcon and -25 or -15, 1),
-			Position = UDim2.fromOffset(TIcon and 27 or 15),
+			Position = UDim2.fromOffset(TIcon and 29 or 15),
 			BackgroundTransparency = 1,
 			Font = Enum.Font.GothamMedium,
 			Text = TName,
