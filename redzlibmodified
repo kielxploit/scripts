@@ -2111,7 +2111,7 @@ function redzlib:MakeWindow(Configs)
 			
 			local ScrollFrame = InsertTheme(Create("ScrollingFrame", DropFrame, {
 				ScrollBarImageColor3 = Theme["Color Theme"],
-				Size = UDim2.new(1, 0, 10, 0),
+				Size = UDim2.new(1, 0, 1, 0),
 				ScrollBarThickness = 1.5,
 				BackgroundTransparency = 1,
 				BorderSizePixel = 0,
