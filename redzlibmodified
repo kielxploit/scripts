@@ -2066,7 +2066,7 @@ function redzlib:MakeWindow(Configs)
 			local Button, LabelFunc = ButtonFrame(Container, DName, DDesc, UDim2.new(1, -180))
 			
 			local SelectedFrame = InsertTheme(Create("Frame", Button, {
-				Size = UDim2.new(0, 150, 0, 20),
+				Size = UDim2.new(0, 150, 0, 18),
 				Position = UDim2.new(1, -10, 0.5),
 				AnchorPoint = Vector2.new(1, 0.5),
 				BackgroundColor3 = Theme["Color Stroke"]
@@ -2145,18 +2145,19 @@ function redzlib:MakeWindow(Configs)
 				return UDim2.fromOffset(152, ScrollSize)
 			end
 			
-            local function CalculateSize()
-                local Count = 0
-                for _, Frame in pairs(ScrollFrame:GetChildren()) do
-                    if Frame:IsA("Frame") or Frame.Name == "Option" then
-                        Count = Count + 1
-                    end
-                end
-                ScrollSize = (math.clamp(Count, 0, 10) * 40) + 10
-                if NoClickFrame.Visible then
-                    CreateTween({DropFrame, "Size", GetFrameSize(), 0.2, true})
-                end
-            end
+			local function CalculateSize()
+				local Count = 0
+				for _,Frame in pairs(ScrollFrame:GetChildren()) do
+					if Frame:IsA("Frame") or Frame.Name == "Option" then
+						Count = Count + 1
+					end
+				end
+				ScrollSize = (math.clamp(Count, 0, 10) * 40) + 10
+				if NoClickFrame.Visible then
+					NoClickFrame.Visible = true
+					CreateTween({DropFrame, "Size", GetFrameSize(), 0.2, true})
+				end
+			end
 			
 			local function Minimize()
 				if WaitClick then return end
@@ -2292,7 +2293,7 @@ function redzlib:MakeWindow(Configs)
 					}), "Theme")Make("Corner", IsSelected, UDim.new(0.5, 0))
 					
 					local OptioneName = InsertTheme(Create("TextLabel", Button, {
-						Size = UDim2.new(3, 0, 3),
+						Size = UDim2.new(4, 0, 4),
 						Position = UDim2.new(0, 10),
 						Text = Name,
 						TextColor3 = Theme["Color Text"],
