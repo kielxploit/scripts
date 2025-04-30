@@ -2063,7 +2063,7 @@ function redzlib:MakeWindow(Configs)
 			local DMultiSelect = Configs.MultiSelect or false
 			local Callback = Funcs:GetCallback(Configs, 4)
 			
-			local Button, LabelFunc = ButtonFrame(Container, DName, DDesc, UDim2.new(1, -200))
+			local Button, LabelFunc = ButtonFrame(Container, DName, DDesc, UDim2.new(1, -180))
 			
 			local SelectedFrame = InsertTheme(Create("Frame", Button, {
 				Size = UDim2.new(0, 150, 0, 20),
@@ -2100,7 +2100,7 @@ function redzlib:MakeWindow(Configs)
 			})
 			
 			local DropFrame = Create("Frame", NoClickFrame, {
-				Size = UDim2.new(200, 0, 0),
+				Size = UDim2.new(SelectedFrame.Size.X, 0, 0),
 				BackgroundTransparency = 0.1,
 				BackgroundColor3 = Color3.fromRGB(255, 255, 255),
 				AnchorPoint = Vector2.new(0, 1),
