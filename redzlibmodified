@@ -2145,19 +2145,18 @@ function redzlib:MakeWindow(Configs)
 				return UDim2.fromOffset(152, ScrollSize)
 			end
 			
-			local function CalculateSize()
-				local Count = 0
-				for _,Frame in pairs(ScrollFrame:GetChildren()) do
-					if Frame:IsA("Frame") or Frame.Name == "Option" then
-						Count = Count + 1
-					end
-				end
-				ScrollSize = (math.clamp(Count, 0, 10) * 25) + 10
-				if NoClickFrame.Visible then
-					NoClickFrame.Visible = true
-					CreateTween({DropFrame, "Size", GetFrameSize(), 0.2, true})
-				end
-			end
+            local function CalculateSize()
+                local Count = 0
+                for _, Frame in pairs(ScrollFrame:GetChildren()) do
+                    if Frame:IsA("Frame") or Frame.Name == "Option" then
+                        Count = Count + 1
+                    end
+                end
+                ScrollSize = (math.clamp(Count, 0, 10) * 30) + 10
+                if NoClickFrame.Visible then
+                    CreateTween({DropFrame, "Size", GetFrameSize(), 0.2, true})
+                end
+            end
 			
 			local function Minimize()
 				if WaitClick then return end
@@ -2279,7 +2278,7 @@ function redzlib:MakeWindow(Configs)
 					
 					local Button = Make("Button", ScrollFrame, {
 						Name = "Option",
-						Size = UDim2.new(1, 0, 0, 21),
+						Size = UDim2.new(1, 0, 0, 30),
 						Position = UDim2.new(0, 0, 0.5),
 						AnchorPoint = Vector2.new(0, 0.5)
 					})Make("Corner", Button, UDim.new(0, 4))
