@@ -2066,7 +2066,7 @@ function redzlib:MakeWindow(Configs)
 			local Button, LabelFunc = ButtonFrame(Container, DName, DDesc, UDim2.new(1, -180))
 			
 			local SelectedFrame = InsertTheme(Create("Frame", Button, {
-				Size = UDim2.new(0, 150, 0, 18),
+				Size = UDim2.new(0, 150, 0, 20),
 				Position = UDim2.new(1, -10, 0.5),
 				AnchorPoint = Vector2.new(1, 0.5),
 				BackgroundColor3 = Theme["Color Stroke"]
@@ -2126,7 +2126,7 @@ function redzlib:MakeWindow(Configs)
 					PaddingTop = UDim.new(0, 5),
 					PaddingBottom = UDim.new(0, 5)
 				}), Create("UIListLayout", {
-					Padding = UDim.new(0, 4)
+					Padding = UDim.new(0, 8)
 				})
 			}), "ScrollBar")
 			
