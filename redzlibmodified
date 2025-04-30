@@ -2066,7 +2066,7 @@ function redzlib:MakeWindow(Configs)
 			local Button, LabelFunc = ButtonFrame(Container, DName, DDesc, UDim2.new(1, -180))
 			
 			local SelectedFrame = InsertTheme(Create("Frame", Button, {
-				Size = UDim2.new(0, 150, 0, 18),
+				Size = UDim2.new(0, 150, 0, 20),
 				Position = UDim2.new(1, -10, 0.5),
 				AnchorPoint = Vector2.new(1, 0.5),
 				BackgroundColor3 = Theme["Color Stroke"]
@@ -2142,7 +2142,7 @@ function redzlib:MakeWindow(Configs)
 			end
 			
 			local function GetFrameSize()
-				return UDim2.fromOffset(152, ScrollSize)
+				return UDim2.fromOffset(200, ScrollSize)
 			end
 			
 			local function CalculateSize()
@@ -2279,7 +2279,7 @@ function redzlib:MakeWindow(Configs)
 					
 					local Button = Make("Button", ScrollFrame, {
 						Name = "Option",
-						Size = UDim2.new(1, 0, 0, 40),
+						Size = UDim2.new(1, 0, 0, 35),
 						Position = UDim2.new(0, 0, 0.5),
 						AnchorPoint = Vector2.new(0, 0.5)
 					})Make("Corner", Button, UDim.new(0, 4))
