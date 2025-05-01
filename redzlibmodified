@@ -2294,11 +2294,11 @@ function redzlib:MakeWindow(Configs)
 					
 					local OptioneName = InsertTheme(Create("TextLabel", Button, {
 						Size = UDim2.new(0, 20, 0, 20),
-						Position = UDim2.new(0, 10),
+						Position = UDim2.new(0, 20),
 						Text = Name,
 						TextColor3 = Theme["Color Text"],
 						Font = Enum.Font.GothamBold,
-						TextXAlignment = "Left",
+						TextXAlignment = Enum.TextXAlignment.Left,
 						BackgroundTransparency = 1,
 						TextTransparency = 0.4
 					}), "Text")
