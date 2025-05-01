@@ -1455,7 +1455,7 @@ function redzlib:MakeWindow(Configs)
 		AutomaticSize = "XY",
 		Text = WTitle,
 		TextXAlignment = "Left",
-		TextSize = 12,
+		TextSize = 20,
 		TextColor3 = Theme["Color Text"],
 		BackgroundTransparency = 1,
 		Font = Enum.Font.GothamMedium,
@@ -2093,7 +2093,7 @@ function redzlib:MakeWindow(Configs)
 			
 			local NoClickFrame = Create("TextButton", DropdownHolder, {
 				Name = "AntiClick",
-				Size = UDim2.new(10, 0, 10, 0),
+				Size = UDim2.new(1, 0, 1, 0),
 				BackgroundTransparency = 1,
 				Visible = false,
 				Text = ""
@@ -2134,7 +2134,7 @@ function redzlib:MakeWindow(Configs)
 			local function Disable()
 				WaitClick = true
 				CreateTween({Arrow, "Rotation", 0, 0.2})
-				CreateTween({DropFrame, "Size", UDim2.new(0, 152, 0, 0), 0.2, true})
+				CreateTween({DropFrame, "Size", UDim2.new(0, 200, 0, 0), 0.2, true})
 				CreateTween({Arrow, "ImageColor3", Color3.fromRGB(255, 255, 255), 0.2})
 				Arrow.Image = "rbxassetid://10709791523"
 				NoClickFrame.Visible = false
@@ -2294,7 +2294,7 @@ function redzlib:MakeWindow(Configs)
 					
 					local OptioneName = InsertTheme(Create("TextLabel", Button, {
 						Size = UDim2.new(20, 0, 20),
-						Position = UDim2.new(0, 10),
+						Position = UDim2.new(0, 20),
 						Text = Name,
 						TextColor3 = Theme["Color Text"],
 						Font = Enum.Font.GothamBold,
