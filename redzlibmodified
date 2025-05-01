@@ -2300,7 +2300,8 @@ function redzlib:MakeWindow(Configs)
 					        TextColor3 = Theme["Color Text"],
 					        Font = Enum.Font.GothamBold,
 					        TextSize = 18,
-					        TextXAlignment = Enum.TextYAlignment.Center,
+					        TextXAlignment = Enum.TextXAlignment.Left,
+                                                TextYAlignMent = Enum.TextYAlignment.Center,
 					        BackgroundTransparency = 1,
 					        TextTransparency = 0.4
 					}), "Text")
