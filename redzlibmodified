@@ -18,7 +18,7 @@ local redzlib = {
 			}),
 			["Color Hub 2"] = Color3.fromRGB(30, 30, 30),
 			["Color Stroke"] = Color3.fromRGB(40, 40, 40),
-			["Color Theme"] = Color3.fromRGB(255, 255, 0),
+			["Color Theme"] = Color3.fromRGB(255, 191, 0) ,
 			["Color Text"] = Color3.fromRGB(243, 243, 243),
 			["Color Dark Text"] = Color3.fromRGB(180, 180, 180)
 		},
@@ -30,7 +30,7 @@ local redzlib = {
 			}),
 			["Color Hub 2"] = Color3.fromRGB(45, 45, 45),
 			["Color Stroke"] = Color3.fromRGB(65, 65, 65),
-			["Color Theme"] = Color3.fromRGB(255, 255, 0),
+			["Color Theme"] = Color3.fromRGB(255, 191, 0) ,
 			["Color Text"] = Color3.fromRGB(245, 245, 245),
 			["Color Dark Text"] = Color3.fromRGB(190, 190, 190)
 		},
@@ -1795,7 +1795,7 @@ function redzlib:MakeWindow(Configs)
 		})Make("Corner", TabSelect)
 		
 		local stroke = Instance.new("UIStroke")
-        stroke.Color = Color3.fromRGB(255, 191, 0)
+        stroke.Color = Color3.fromRGB(255, 191, 0) 
         stroke.Thickness = 1
         stroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
         stroke.Parent = TabSelect
