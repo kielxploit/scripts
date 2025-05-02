@@ -1263,7 +1263,13 @@ local function ButtonFrame(Instance, Title, Description, HolderSize)
 		Text = "",
 		RichText = true
 	}), "Text")
-	
+
+	local stroke = Instance.new("UIStroke")
+    stroke.Color = Color3.fromRGB(255, 255, 0)
+    stroke.Thickness = 1
+    stroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+    stroke.Parent = ButtonFrame
+
 	local DescL = InsertTheme(Create("TextLabel", {
 		Font = Enum.Font.Gotham,
 		TextColor3 = Theme["Color Dark Text"],
