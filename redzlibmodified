@@ -1264,12 +1264,6 @@ local function ButtonFrame(Instance, Title, Description, HolderSize)
 		RichText = true
 	}), "Text")
 
-	local stroke = Instance.new("UIStroke")
-    stroke.Color = Color3.fromRGB(255, 255, 0)
-    stroke.Thickness = 1
-    stroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
-    stroke.Parent = ButtonFrame
-
 	local DescL = InsertTheme(Create("TextLabel", {
 		Font = Enum.Font.Gotham,
 		TextColor3 = Theme["Color Dark Text"],
@@ -1288,7 +1282,14 @@ local function ButtonFrame(Instance, Title, Description, HolderSize)
 		Size = UDim2.new(1, 0, 0, 35),
 		AutomaticSize = "Y",
 		Name = "Option"
-	})Make("Corner", Frame, UDim.new(0, 6))
+	})
+        Make("Corner", Frame, UDim.new(0, 6))
+
+	local stroke = Instance.new("UIStroke")
+	stroke.Color = Color3.fromRGB(255, 255, 0)
+	stroke.Thickness = 1
+	stroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+	stroke.Parent = Frame
 
 	LabelHolder = Create("Frame", Frame, {
 		AutomaticSize = "Y",
