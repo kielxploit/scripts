@@ -1263,7 +1263,7 @@ local function ButtonFrame(Instance, Title, Description, HolderSize)
 		Text = "",
 		RichText = true
 	}), "Text")
-
+	
 	local DescL = InsertTheme(Create("TextLabel", {
 		Font = Enum.Font.Gotham,
 		TextColor3 = Theme["Color Dark Text"],
@@ -1282,9 +1282,8 @@ local function ButtonFrame(Instance, Title, Description, HolderSize)
 		Size = UDim2.new(1, 0, 0, 35),
 		AutomaticSize = "Y",
 		Name = "Option"
-	})
-        Make("Corner", Frame, UDim.new(0, 6))
-
+	})Make("Corner", Frame, UDim.new(0, 6))
+	
 	LabelHolder = Create("Frame", Frame, {
 		AutomaticSize = "Y",
 		BackgroundTransparency = 1,
@@ -1945,6 +1944,12 @@ function redzlib:MakeWindow(Configs)
 			
 			local Frame, LabelFunc = ButtonFrame(Container, PName, PDesc, UDim2.new(1, -10))
 			
+			local outline = Instance.new("UIStroke")
+            outline.Color = Color3.fromRGB(255, 255, 0) 
+            outline.Thickness = 1
+            outline.ApplyStrokeMode = Enum.ApplyStrokeMode.Border 
+            outline.Parent = Frame
+			
 			local Paragraph = {}
 			function Paragraph:Visible(...) Funcs:ToggleVisible(Frame, ...) end
 			function Paragraph:Destroy() Frame:Destroy() end
@@ -1970,6 +1975,12 @@ function redzlib:MakeWindow(Configs)
 			local Callback = Funcs:GetCallback(Configs, 2)
 			
 			local FButton, LabelFunc = ButtonFrame(Container, BName, BDescription, UDim2.new(1, -20))
+			
+			local outline = Instance.new("UIStroke")
+            outline.Color = Color3.fromRGB(255, 255, 0) 
+            outline.Thickness = 1
+            outline.ApplyStrokeMode = Enum.ApplyStrokeMode.Border 
+            outline.Parent = FButton
 			
 			local ButtonIcon = Create("ImageLabel", FButton, {
 				Size = UDim2.new(0, 18, 0, 18),
@@ -2009,6 +2020,12 @@ function redzlib:MakeWindow(Configs)
 			
 			local Button, LabelFunc = ButtonFrame(Container, TName, TDesc, UDim2.new(1, -38))
 			
+			local outline = Instance.new("UIStroke")
+            outline.Color = Color3.fromRGB(255, 255, 0) 
+            outline.Thickness = 1
+            outline.ApplyStrokeMode = Enum.ApplyStrokeMode.Border 
+            outline.Parent = Button
+            
 			local ToggleHolder = InsertTheme(Create("Frame", Button, {
 				Size = UDim2.new(0, 35, 0, 18),
 				Position = UDim2.new(1, -10, 0.5),
@@ -2303,12 +2320,12 @@ function redzlib:MakeWindow(Configs)
 						Position = UDim2.new(0, 0, 0.5),
 						AnchorPoint = Vector2.new(0, 0.5)
 					})Make("Corner", Button, UDim.new(0, 4))
-
+					
                     local outline = Instance.new("UIStroke")
-					outline.Color = Color3.fromRGB(255, 255, 0) 
-					outline.Thickness = 2 
-					outline.ApplyStrokeMode = Enum.ApplyStrokeMode.Border   
-					outline.Parent = Button
+                    outline.Color = Color3.fromRGB(255, 255, 0)
+                    outline.Thickness = 2
+                    outline.ApplyStrokeMode = Enum.ApplyStrokeMode.Border 
+                    outline.Parent = Button
 					
 					local IsSelected = InsertTheme(Create("Frame", Button, {
 						Position = UDim2.new(0, 1, 0.5),
@@ -2440,6 +2457,12 @@ function redzlib:MakeWindow(Configs)
 			
 			local Button, LabelFunc = ButtonFrame(Container, SName, SDesc, UDim2.new(1, -180))
 			
+			local outline = Instance.new("UIStroke")
+            outline.Color = Color3.fromRGB(255, 255, 0) 
+            outline.Thickness = 1
+            outline.ApplyStrokeMode = Enum.ApplyStrokeMode.Border 
+            outline.Parent = Button
+            
 			local SliderHolder = Create("TextButton", Button, {
 				Size = UDim2.new(0.45, 0, 1),
 				Position = UDim2.new(1),
