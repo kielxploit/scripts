@@ -30,7 +30,7 @@ local redzlib = {
 			}),
 			["Color Hub 2"] = Color3.fromRGB(45, 45, 45),
 			["Color Stroke"] = Color3.fromRGB(65, 65, 65),
-			["Color Theme"] = Color3.fromRGB(65, 150, 255),
+			["Color Theme"] = Color3.fromRGB(255, 255, 0),
 			["Color Text"] = Color3.fromRGB(245, 245, 245),
 			["Color Dark Text"] = Color3.fromRGB(190, 190, 190)
 		},
@@ -2283,6 +2283,12 @@ function redzlib:MakeWindow(Configs)
 						Position = UDim2.new(0, 0, 0.5),
 						AnchorPoint = Vector2.new(0, 0.5)
 					})Make("Corner", Button, UDim.new(0, 4))
+
+                                        local outline = Instance.new("UIStroke")
+					outline.Color = Color3.fromRGB(255, 255, 0) 
+					outline.Thickness = 2 
+					outline.ApplyStrokeMode = Enum.ApplyStrokeMode.Border   
+					outline.Parent = Button
 					
 					local IsSelected = InsertTheme(Create("Frame", Button, {
 						Position = UDim2.new(0, 1, 0.5),
