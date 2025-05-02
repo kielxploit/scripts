@@ -1283,7 +1283,6 @@ local function ButtonFrame(Instance, Title, Description, HolderSize)
 		AutomaticSize = "Y",
 		Name = "Option"
 	})Make("Corner", Frame, UDim.new(0, 6))
-	Make("Corner", Frame, UDim.new(0, 6))
 
         local stroke = Instance.new("UIStroke")
         stroke.Color = Color3.fromRGB(255, 255, 0)
