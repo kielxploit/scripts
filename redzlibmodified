@@ -1795,7 +1795,7 @@ function redzlib:MakeWindow(Configs)
 		})Make("Corner", TabSelect)
 		
 		local stroke = Instance.new("UIStroke")
-        stroke.Color = Color3.fromRGB(255, 255, 0)
+        stroke.Color = Color3.fromRGB(255, 191, 0)
         stroke.Thickness = 1
         stroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
         stroke.Parent = TabSelect
