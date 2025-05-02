@@ -1429,6 +1429,13 @@ function redzlib:MakeWindow(Configs)
 		BackgroundTransparency = 0.03,
 		Name = "Hub"
 	}), "Main")
+
+    local outline = Instance.new("UIStroke")
+    outline.Color = Color3.fromRGB(255, 255, 0)
+    outline.Thickness = 2
+    outline.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+    outline.Parent = MainFrame
+    
 	Make("Gradient", MainFrame, {
 		Rotation = 45
 	})MakeDrag(MainFrame)
@@ -1623,6 +1630,12 @@ function redzlib:MakeWindow(Configs)
 			AutoButtonColor = false
 		}))
 		
+		local outline = Instance.new("UIStroke")
+			outline.Color = Color3.fromRGB(255, 255, 0) 
+			outline.Thickness = 2 
+			outline.ApplyStrokeMode = Enum.ApplyStrokeMode.Border   
+			outline.Parent = Button
+			
 		local Stroke, Corner
 		if Configs.Corner then
 			Corner = Make("Corner", Button)
@@ -1780,6 +1793,12 @@ function redzlib:MakeWindow(Configs)
 		local TabSelect = Make("Button", MainScroll, {
 			Size = UDim2.new(1, 0, 0, 34)
 		})Make("Corner", TabSelect)
+		
+		local stroke = Instance.new("UIStroke")
+        stroke.Color = Color3.fromRGB(255, 255, 0)
+        stroke.Thickness = 2
+        stroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+        stroke.Parent = TabSelect
 		
 		local LabelTitle = InsertTheme(Create("TextLabel", TabSelect, {
 			Size = UDim2.new(1, TIcon and -25 or -15, 1),
@@ -2284,7 +2303,7 @@ function redzlib:MakeWindow(Configs)
 						AnchorPoint = Vector2.new(0, 0.5)
 					})Make("Corner", Button, UDim.new(0, 4))
 
-                                        local outline = Instance.new("UIStroke")
+                    local outline = Instance.new("UIStroke")
 					outline.Color = Color3.fromRGB(255, 255, 0) 
 					outline.Thickness = 2 
 					outline.ApplyStrokeMode = Enum.ApplyStrokeMode.Border   
@@ -2298,18 +2317,18 @@ function redzlib:MakeWindow(Configs)
 						AnchorPoint = Vector2.new(0, 0.5)
 					}), "Theme")Make("Corner", IsSelected, UDim.new(0.5, 0))
                                         
-                                        local OptioneName = InsertTheme(Create("TextLabel", Button, {
-                                                Size = UDim2.new(0, 100, 0, 20),
-                                                Position = UDim2.new(0, 20, 0.5, 0),
-                                                AnchorPoint = Vector2.new(0, 0.5),
-                                                Text = Name,
-                                                TextColor3 = Theme["Color Text"],
-                                                Font = Enum.Font.GothamBold,
-                                                TextSize = 18,
-                                                TextXAlignment = Enum.TextXAlignment.Left,
-                                                BackgroundTransparency = 1,
-                                                TextTransparency = 0.4
-                                        }), "Text")
+                    local OptioneName = InsertTheme(Create("TextLabel", Button, {
+                            Size = UDim2.new(0, 100, 0, 20),
+                            Position = UDim2.new(0, 20, 0.5, 0),
+                            AnchorPoint = Vector2.new(0, 0.5),
+                            Text = Name,
+                            TextColor3 = Theme["Color Text"],
+                            Font = Enum.Font.GothamBold,
+                            TextSize = 18,
+                            TextXAlignment = Enum.TextXAlignment.Left,
+                            BackgroundTransparency = 1,
+                            TextTransparency = 0.4
+                    }), "Text")
 
 					Button.Activated:Connect(function()
 						Select(Options[Name])
