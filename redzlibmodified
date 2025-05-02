@@ -1432,7 +1432,7 @@ function redzlib:MakeWindow(Configs)
 
     local outline = Instance.new("UIStroke")
     outline.Color = Color3.fromRGB(255, 255, 0)
-    outline.Thickness = 2
+    outline.Thickness = 1
     outline.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
     outline.Parent = MainFrame
     
@@ -1632,7 +1632,7 @@ function redzlib:MakeWindow(Configs)
 		
 		local outline = Instance.new("UIStroke")
 			outline.Color = Color3.fromRGB(255, 255, 0) 
-			outline.Thickness = 2 
+			outline.Thickness = 1
 			outline.ApplyStrokeMode = Enum.ApplyStrokeMode.Border   
 			outline.Parent = Button
 			
@@ -1796,7 +1796,7 @@ function redzlib:MakeWindow(Configs)
 		
 		local stroke = Instance.new("UIStroke")
         stroke.Color = Color3.fromRGB(255, 255, 0)
-        stroke.Thickness = 2
+        stroke.Thickness = 1
         stroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
         stroke.Parent = TabSelect
 		
