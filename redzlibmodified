@@ -2102,6 +2102,12 @@ function redzlib:MakeWindow(Configs)
 			
 			local Button, LabelFunc = ButtonFrame(Container, DName, DDesc, UDim2.new(1, -180))
 			
+			local outline = Instance.new("UIStroke")
+            outline.Color = Color3.fromRGB(255, 255, 0) 
+            outline.Thickness = 1
+            outline.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+            outline.Parent = Button
+
 			local SelectedFrame = InsertTheme(Create("Frame", Button, {
 				Size = UDim2.new(0, 150, 0, 20),
 				Position = UDim2.new(1, -10, 0.5),
@@ -2323,7 +2329,7 @@ function redzlib:MakeWindow(Configs)
 					
                     local outline = Instance.new("UIStroke")
                     outline.Color = Color3.fromRGB(255, 255, 0)
-                    outline.Thickness = 2
+                    outline.Thickness = 1
                     outline.ApplyStrokeMode = Enum.ApplyStrokeMode.Border 
                     outline.Parent = Button
 					
@@ -2597,6 +2603,12 @@ function redzlib:MakeWindow(Configs)
 			
 			local Button, LabelFunc = ButtonFrame(Container, TName, TDesc, UDim2.new(1, -38))
 			
+			local outline = Instance.new("UIStroke")
+            outline.Color = Color3.fromRGB(255, 255, 0) 
+            outline.Thickness = 1
+            outline.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+            outline.Parent = Button
+
 			local SelectedFrame = InsertTheme(Create("Frame", Button, {
 				Size = UDim2.new(0, 150, 0, 18),
 				Position = UDim2.new(1, -10, 0.5),
