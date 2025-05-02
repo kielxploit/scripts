@@ -1288,7 +1288,7 @@ local function ButtonFrame(Instance, Title, Description, HolderSize)
         stroke.Color = Color3.fromRGB(255, 255, 0)
         stroke.Thickness = 1
         stroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
-        stroke.Parent = Frame
+        stroke.Parent = ButtonFrame
 
 	LabelHolder = Create("Frame", Frame, {
 		AutomaticSize = "Y",
