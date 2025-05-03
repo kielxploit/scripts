@@ -18,7 +18,7 @@ local redzlib = {
 			}),
 			["Color Hub 2"] = Color3.fromRGB(30, 30, 30),
 			["Color Stroke"] = Color3.fromRGB(40, 40, 40),
-			["Color Theme"] = Color3.fromRGB(16, 16, 16) ,
+			["Color Theme"] = Color3.fromRGB(255, 255, 255) ,
 			["Color Text"] = Color3.fromRGB(243, 243, 243),
 			["Color Dark Text"] = Color3.fromRGB(180, 180, 180)
 		},
@@ -30,7 +30,7 @@ local redzlib = {
 			}),
 			["Color Hub 2"] = Color3.fromRGB(45, 45, 45),
 			["Color Stroke"] = Color3.fromRGB(65, 65, 65),
-			["Color Theme"] = Color3.fromRGB(16, 16, 16) ,
+			["Color Theme"] = Color3.fromRGB(255, 255, 255) ,
 			["Color Text"] = Color3.fromRGB(245, 245, 245),
 			["Color Dark Text"] = Color3.fromRGB(190, 190, 190),
 			["Color Background Transparent"] = Color3.fromRGB(100, 100, 100),
@@ -1445,8 +1445,8 @@ function redzlib:MakeWindow(Configs)
 	}), "Main")
 
     local outline = Instance.new("UIStroke")
-    outline.Color = Color3.fromRGB(105, 105, 105) 
-    outline.Thickness = 5
+    outline.Color = Color3.fromRGB(255, 255, 255) 
+    outline.Thickness = 2
     outline.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
     outline.Parent = MainFrame
     
@@ -1645,7 +1645,7 @@ function redzlib:MakeWindow(Configs)
 		}))
 		
 		local outline = Instance.new("UIStroke")
-			outline.Color = Color3.fromRGB(16, 16, 16)  
+			outline.Color = Color3.fromRGB(255, 255, 255)  
 			outline.Thickness = 1
 			outline.ApplyStrokeMode = Enum.ApplyStrokeMode.Border   
 			outline.Parent = Button
@@ -1809,7 +1809,7 @@ function redzlib:MakeWindow(Configs)
 		})Make("Corner", TabSelect)
 		
 		local stroke = Instance.new("UIStroke")
-        stroke.Color = Color3.fromRGB(16, 16, 16) 
+        stroke.Color = Color3.fromRGB(255, 255, 255) 
         stroke.Thickness = 1
         stroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
         stroke.Parent = TabSelect
@@ -1959,7 +1959,7 @@ function redzlib:MakeWindow(Configs)
 			local Frame, LabelFunc = ButtonFrame(Container, PName, PDesc, UDim2.new(1, 10))
 			
 			local outline = Instance.new("UIStroke")
-            outline.Color = Color3.fromRGB(16, 16, 16)  
+            outline.Color = Color3.fromRGB(255, 255, 255)  
             outline.Thickness = 1
             outline.ApplyStrokeMode = Enum.ApplyStrokeMode.Border 
             outline.Parent = Frame
@@ -1991,7 +1991,7 @@ function redzlib:MakeWindow(Configs)
 			local FButton, LabelFunc = ButtonFrame(Container, BName, BDescription, UDim2.new(1, -20))
 			
 			local outline = Instance.new("UIStroke")
-            outline.Color = Color3.fromRGB(16, 16, 16)  
+            outline.Color = Color3.fromRGB(255, 255, 255)  
             outline.Thickness = 1
             outline.ApplyStrokeMode = Enum.ApplyStrokeMode.Border 
             outline.Parent = FButton
@@ -2035,7 +2035,7 @@ function redzlib:MakeWindow(Configs)
 			local Button, LabelFunc = ButtonFrame(Container, TName, TDesc, UDim2.new(1, -38))
 			
 			local outline = Instance.new("UIStroke")
-            outline.Color = Color3.fromRGB(16, 16, 16)  
+            outline.Color = Color3.fromRGB(255, 255, 255)  
             outline.Thickness = 1
             outline.ApplyStrokeMode = Enum.ApplyStrokeMode.Border 
             outline.Parent = Button
@@ -2117,7 +2117,7 @@ function redzlib:MakeWindow(Configs)
 			local Button, LabelFunc = ButtonFrame(Container, DName, DDesc, UDim2.new(1, -180))
 			
 			local outline = Instance.new("UIStroke")
-            outline.Color = Color3.fromRGB(16, 16, 16)  
+            outline.Color = Color3.fromRGB(255, 255, 255)  
             outline.Thickness = 1
             outline.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
             outline.Parent = Button
@@ -2342,7 +2342,7 @@ function redzlib:MakeWindow(Configs)
 					})Make("Corner", Button, UDim.new(0, 4))
 					
                     local outline = Instance.new("UIStroke")
-                    outline.Color = Color3.fromRGB(16, 16, 16) 
+                    outline.Color = Color3.fromRGB(255, 255, 255) 
                     outline.Thickness = 1
                     outline.ApplyStrokeMode = Enum.ApplyStrokeMode.Border 
                     outline.Parent = Button
@@ -2478,7 +2478,7 @@ function redzlib:MakeWindow(Configs)
 			local Button, LabelFunc = ButtonFrame(Container, SName, SDesc, UDim2.new(1, -180))
 			
 			local outline = Instance.new("UIStroke")
-            outline.Color = Color3.fromRGB(16, 16, 16)  
+            outline.Color = Color3.fromRGB(255, 255, 255)  
             outline.Thickness = 1
             outline.ApplyStrokeMode = Enum.ApplyStrokeMode.Border 
             outline.Parent = Button
@@ -2618,7 +2618,7 @@ function redzlib:MakeWindow(Configs)
 			local Button, LabelFunc = ButtonFrame(Container, TName, TDesc, UDim2.new(1, -38))
 			
 			local outline = Instance.new("UIStroke")
-            outline.Color = Color3.fromRGB(16, 16, 16)  
+            outline.Color = Color3.fromRGB(255, 255, 255)  
             outline.Thickness = 1
             outline.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
             outline.Parent = Button
