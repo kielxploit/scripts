@@ -18,7 +18,7 @@ local redzlib = {
 			}),
 			["Color Hub 2"] = Color3.fromRGB(30, 30, 30),
 			["Color Stroke"] = Color3.fromRGB(40, 40, 40),
-			["Color Theme"] = Color3.fromRGB(255, 191, 0) ,
+			["Color Theme"] = Color3.fromRGB(16, 16, 16) ,
 			["Color Text"] = Color3.fromRGB(243, 243, 243),
 			["Color Dark Text"] = Color3.fromRGB(180, 180, 180)
 		},
@@ -30,7 +30,7 @@ local redzlib = {
 			}),
 			["Color Hub 2"] = Color3.fromRGB(45, 45, 45),
 			["Color Stroke"] = Color3.fromRGB(65, 65, 65),
-			["Color Theme"] = Color3.fromRGB(255, 191, 0) ,
+			["Color Theme"] = Color3.fromRGB(16, 16, 16) ,
 			["Color Text"] = Color3.fromRGB(245, 245, 245),
 			["Color Dark Text"] = Color3.fromRGB(190, 190, 190),
 			["Color Background Transparent"] = Color3.fromRGB(100, 100, 100),
@@ -47,6 +47,18 @@ local redzlib = {
 			["Color Theme"] = Color3.fromRGB(150, 0, 255),
 			["Color Text"] = Color3.fromRGB(240, 240, 240),
 			["Color Dark Text"] = Color3.fromRGB(180, 180, 180)
+		},
+		Gray = {
+			["Color Hub 1"] = ColorSequence.new({
+				ColorSequenceKeypoint.new(0.00, Color3.fromRGB(16, 16, 16)),
+				ColorSequenceKeypoint.new(0.50, Color3.fromRGB(16, 16, 16)),
+				ColorSequenceKeypoint.new(1.00, Color3.fromRGB(16, 16, 16))
+			}),
+			["Color Hub 2"] = Color3.fromRGB(16, 16, 16),
+			["Color Stroke"] = Color3.fromRGB(16, 16, 16),
+			["Color Theme"] = Color3.fromRGB(16, 16, 16),
+			["Color Text"] = Color3.fromRGB(16, 16, 16),
+			["Color Dark Text"] = Color3.fromRGB(16, 16, 16)
 		}
 	},
 	Info = {
@@ -55,7 +67,7 @@ local redzlib = {
 	Save = {
 		UISize = {550, 380},
 		TabSize = 180,
-		Theme = "Dark"
+		Theme = "Gray"
 	},
 	Settings = {},
 	Connection = {},
@@ -1433,8 +1445,8 @@ function redzlib:MakeWindow(Configs)
 	}), "Main")
 
     local outline = Instance.new("UIStroke")
-    outline.Color = Color3.fromRGB(255, 191, 0) 
-    outline.Thickness = 1
+    outline.Color = Color3.fromRGB(105, 105, 105) 
+    outline.Thickness = 5
     outline.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
     outline.Parent = MainFrame
     
@@ -1565,7 +1577,7 @@ function redzlib:MakeWindow(Configs)
 	})
 	
 	local CloseButton = Create("ImageButton", {
-		Size = UDim2.new(0, 14, 0, 14),
+		Size = UDim2.new(0, 15, 0, 15),
 		Position = UDim2.new(1, -10, 0.5),
 		AnchorPoint = Vector2.new(1, 0.5),
 		BackgroundTransparency = 1,
@@ -1633,7 +1645,7 @@ function redzlib:MakeWindow(Configs)
 		}))
 		
 		local outline = Instance.new("UIStroke")
-			outline.Color = Color3.fromRGB(255, 191, 0)  
+			outline.Color = Color3.fromRGB(16, 16, 16)  
 			outline.Thickness = 1
 			outline.ApplyStrokeMode = Enum.ApplyStrokeMode.Border   
 			outline.Parent = Button
@@ -1797,7 +1809,7 @@ function redzlib:MakeWindow(Configs)
 		})Make("Corner", TabSelect)
 		
 		local stroke = Instance.new("UIStroke")
-        stroke.Color = Color3.fromRGB(255, 191, 0) 
+        stroke.Color = Color3.fromRGB(16, 16, 16) 
         stroke.Thickness = 1
         stroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
         stroke.Parent = TabSelect
@@ -1947,7 +1959,7 @@ function redzlib:MakeWindow(Configs)
 			local Frame, LabelFunc = ButtonFrame(Container, PName, PDesc, UDim2.new(1, 10))
 			
 			local outline = Instance.new("UIStroke")
-            outline.Color = Color3.fromRGB(255, 191, 0)  
+            outline.Color = Color3.fromRGB(16, 16, 16)  
             outline.Thickness = 1
             outline.ApplyStrokeMode = Enum.ApplyStrokeMode.Border 
             outline.Parent = Frame
@@ -1979,7 +1991,7 @@ function redzlib:MakeWindow(Configs)
 			local FButton, LabelFunc = ButtonFrame(Container, BName, BDescription, UDim2.new(1, -20))
 			
 			local outline = Instance.new("UIStroke")
-            outline.Color = Color3.fromRGB(255, 191, 0)  
+            outline.Color = Color3.fromRGB(16, 16, 16)  
             outline.Thickness = 1
             outline.ApplyStrokeMode = Enum.ApplyStrokeMode.Border 
             outline.Parent = FButton
@@ -2023,7 +2035,7 @@ function redzlib:MakeWindow(Configs)
 			local Button, LabelFunc = ButtonFrame(Container, TName, TDesc, UDim2.new(1, -38))
 			
 			local outline = Instance.new("UIStroke")
-            outline.Color = Color3.fromRGB(255, 191, 0)  
+            outline.Color = Color3.fromRGB(16, 16, 16)  
             outline.Thickness = 1
             outline.ApplyStrokeMode = Enum.ApplyStrokeMode.Border 
             outline.Parent = Button
@@ -2105,7 +2117,7 @@ function redzlib:MakeWindow(Configs)
 			local Button, LabelFunc = ButtonFrame(Container, DName, DDesc, UDim2.new(1, -180))
 			
 			local outline = Instance.new("UIStroke")
-            outline.Color = Color3.fromRGB(255, 191, 0)  
+            outline.Color = Color3.fromRGB(16, 16, 16)  
             outline.Thickness = 1
             outline.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
             outline.Parent = Button
@@ -2330,7 +2342,7 @@ function redzlib:MakeWindow(Configs)
 					})Make("Corner", Button, UDim.new(0, 4))
 					
                     local outline = Instance.new("UIStroke")
-                    outline.Color = Color3.fromRGB(255, 191, 0) 
+                    outline.Color = Color3.fromRGB(16, 16, 16) 
                     outline.Thickness = 1
                     outline.ApplyStrokeMode = Enum.ApplyStrokeMode.Border 
                     outline.Parent = Button
@@ -2466,7 +2478,7 @@ function redzlib:MakeWindow(Configs)
 			local Button, LabelFunc = ButtonFrame(Container, SName, SDesc, UDim2.new(1, -180))
 			
 			local outline = Instance.new("UIStroke")
-            outline.Color = Color3.fromRGB(255, 191, 0)  
+            outline.Color = Color3.fromRGB(16, 16, 16)  
             outline.Thickness = 1
             outline.ApplyStrokeMode = Enum.ApplyStrokeMode.Border 
             outline.Parent = Button
@@ -2606,7 +2618,7 @@ function redzlib:MakeWindow(Configs)
 			local Button, LabelFunc = ButtonFrame(Container, TName, TDesc, UDim2.new(1, -38))
 			
 			local outline = Instance.new("UIStroke")
-            outline.Color = Color3.fromRGB(255, 191, 0)  
+            outline.Color = Color3.fromRGB(16, 16, 16)  
             outline.Thickness = 1
             outline.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
             outline.Parent = Button
