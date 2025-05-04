@@ -211,6 +211,12 @@ function MakeWindow(Configs)
     Active = true,
     Draggable = true
   })Corner(Menu)
+
+local Stroke = Instance.new("UIStroke")
+Stroke.Color = Color3.fromRGB(59, 130, 246) -- Blue outline
+Stroke.Thickness = 2
+Stroke.Parent = Menu
+
   
   local Stroke = Instance.new("UIStroke")
     Stroke.Color = Color3.fromRGB(59, 130, 246) -- Tailwind Blue-500
