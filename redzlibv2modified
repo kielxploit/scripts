@@ -399,74 +399,91 @@ Stroke.Parent = Menu
     end
   end)
   
-  function MakeTab(Configs)
-    local TabName = Configs.Name or "Tab"
-    local TabTitle = Configs.TabTitle or false
+    function MakeTab(Configs)
+      local TabName = Configs.Name or "Tab"
+      local TabTitle = Configs.TabTitle or false
     
-    local Frame = Create("Frame", ScrollBar, {
-      Size = UDim2.new(1, 0, 0, 25),
-      BackgroundTransparency = 1
-    })Corner(Frame)Stroke(Frame)
+      local textcolor = Configs_HUB.Cor_DarkText
+      local textsize = 14
+      local visibleState = firstVisible or false
     
-    local TextButton = Create("TextButton", Frame, {
-      Size = UDim2.new(1, 0, 1, 0),
-      BackgroundTransparency = 1,
-      Text = ""
-    })
+      local Frame = Create("Frame", ScrollBar, {
+        Size = UDim2.new(1, 0, 0, 25),
+        BackgroundTransparency = 1
+      }) Corner(Frame) Stroke(Frame)
     
-    local TextLabel = Create("TextLabel", Frame, {
-      Size = UDim2.new(1, 0, 1, 0),
-      BackgroundTransparency = 1,
-      Font = Enum.Font.GothamBold,
-      TextColor3 = textcolor,
-      TextSize = textsize,
-      Text = TabName
-    })
+      local TextButton = Create("TextButton", Frame, {
+        Size = UDim2.new(1, 0, 1, 0),
+        BackgroundTransparency = 1,
+        Text = ""
+      })
     
-    local Container = Create("ScrollingFrame", Containers, {
-      Size = UDim2.new(1, 0, 1, 0),
-      ScrollingDirection = "Y",
-      AutomaticCanvasSize = "Y",
-      CanvasSize = UDim2.new(),
-      BackgroundTransparency = 1,
-      ScrollBarThickness = 2,
-      Visible = firstVisible
-    })Create("UIPadding", Container, {
-      PaddingLeft = UDim.new(0, 10),
-      PaddingRight = UDim.new(0, 10),
-      PaddingTop = UDim.new(0, 10),
-      PaddingBottom = UDim.new(0, 10)
-    })Create("UIListLayout", Container, {
-      Padding = UDim.new(0, 5)
-    })
+      local TextLabel = Create("TextLabel", Frame, {
+        Size = UDim2.new(1, 0, 1, 0),
+        BackgroundTransparency = 1,
+        Font = Enum.Font.GothamBold,
+        TextColor3 = textcolor,
+        TextSize = textsize,
+        Text = TabName
+      })
     
-    if TabTitle then
-      Create("TextLabel",Container,{BackgroundTransparency=1,Text="#"..string.gsub(TabName," ","-"),TextSize=25,Font=Configs_HUB.Text_Font,TextXAlignment="Left",TextColor3=Configs_HUB.Cor_Text,Size=UDim2.new(1, 0, 0, 30),Position=UDim2.new(0, 30, 0, 0),Name="Frame"})
+      local Container = Create("ScrollingFrame", Containers, {
+        Size = UDim2.new(1, 0, 1, 0),
+        ScrollingDirection = "Y",
+        AutomaticCanvasSize = "Y",
+        CanvasSize = UDim2.new(),
+        BackgroundTransparency = 1,
+        ScrollBarThickness = 2,
+        Visible = visibleState
+      })
+      
+      Create("UIPadding", Container, {
+        PaddingLeft = UDim.new(0, 10),
+        PaddingRight = UDim.new(0, 10),
+        PaddingTop = UDim.new(0, 10),
+        PaddingBottom = UDim.new(0, 10)
+      })
+      
+      Create("UIListLayout", Container, {
+        Padding = UDim.new(0, 5)
+      })
+    
+      if TabTitle then
+        Create("TextLabel", Container, {
+          BackgroundTransparency = 1,
+          Text = "#" .. string.gsub(TabName, " ", "-"),
+          TextSize = 25,
+          Font = Configs_HUB.Text_Font,
+          TextXAlignment = "Left",
+          TextColor3 = Configs_HUB.Cor_Text,
+          Size = UDim2.new(1, 0, 0, 30),
+          Position = UDim2.new(0, 30, 0, 0),
+          Name = "Frame"
+        })
+      end
+    
+      TextButton.MouseButton1Click:Connect(function()
+        for _, container in pairs(Containers:GetChildren()) do
+          if container:IsA("ScrollingFrame") then
+            container.Visible = false
+          end
+        end
+    
+        for _, frame in pairs(ScrollBar:GetChildren()) do
+          if frame:IsA("Frame") and frame:FindFirstChild("TextLabel") and frame.TextLabel ~= TextLabel then
+            CreateTween(frame.TextLabel, "TextColor3", Configs_HUB.Cor_DarkText, 0.3, false)
+            frame.TextLabel.TextSize = 14
+          end
+        end
+    
+        Container.Visible = true
+        CreateTween(TextLabel, "TextColor3", Configs_HUB.Cor_Text, 0.3, false)
+        TextLabel.TextSize = 15
+      end)
+    
+      firstVisible = false -- for next tab
+      return Container
     end
-    
-    TextButton.MouseButton1Click:Connect(function()
-      for _,container in pairs(Containers:GetChildren()) do
-        if container:IsA("ScrollingFrame") then
-          container.Visible = false
-        end
-      end
-      for _,frame in pairs(ScrollBar:GetChildren()) do
-        if frame:IsA("Frame") and frame:FindFirstChild("TextLabel") and frame.TextLabel ~= TextLabel then
-          CreateTween(frame.TextLabel, "TextColor3", Configs_HUB.Cor_DarkText, 0.3, false)
-          frame.TextLabel.TextSize = 14
-        end
-      end
-      Container.Visible = true
-      CreateTween(TextLabel, "TextColor3", Configs_HUB.Cor_Text, 0.3, false)
-      TextLabel.TextSize = 15
-    end)
-    
-    firstVisible = false
-    FirstTab = false
-    textsize = 14
-    textcolor = Configs_HUB.Cor_DarkText
-    return Container
-  end
   
   function AddButton(parent, Configs)
     local ButtonName = Configs.Name or "Button!!"
