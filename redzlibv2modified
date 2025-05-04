@@ -1,7 +1,7 @@
 local Configs_HUB = {
   Cor_Hub = Color3.fromRGB(15, 15, 15),
   Cor_Options = Color3.fromRGB(15, 15, 15),
-  Cor_Stroke = Color3.fromRGB(60, 60, 60),
+  Cor_Stroke = Color3.fromRGB(82, 83, 84),
   Cor_Text = Color3.fromRGB(240, 240, 240),
   Cor_DarkText = Color3.fromRGB(140, 140, 140),
   Corner_Radius = UDim.new(0, 4),
@@ -121,7 +121,7 @@ function MakeNotifi(Configs)
   
   local TextLabel = Create("TextLabel", Frame2, {
     Size = UDim2.new(1, 0, 0, 25),
-    Font = Configs_HUB.Text_Font,
+    Font = Enum.Font.GothamBold,
     BackgroundTransparency = 1,
     Text = Title,
     TextSize = 20,
@@ -129,18 +129,7 @@ function MakeNotifi(Configs)
     TextXAlignment = "Left",
     TextColor3 = Configs_HUB.Cor_Text
   })
-  
-  local TextButton = Create("TextButton", Frame2, {
-    Text = "X",
-    Font = Configs_HUB.Text_Font,
-    TextSize = 20,
-    BackgroundTransparency = 1,
-    TextColor3 = Color3.fromRGB(200, 200, 200),
-    Position = UDim2.new(1, -5, 0, 5),
-    AnchorPoint = Vector2.new(1, 0),
-    Size = UDim2.new(0, 25, 0, 25)
-  })
-  
+    
   local TextLabel = Create("TextLabel", Frame2, {
     Size = UDim2.new(1, -30, 0, 0),
     Position = UDim2.new(0, 20, 0, TextButton.Size.Y.Offset + 10),
@@ -150,7 +139,7 @@ function MakeNotifi(Configs)
     TextYAlignment = "Top",
     AutomaticSize = "Y",
     Text = text,
-    Font = Configs_HUB.Text_Font,
+    Font = Enum.Font.GothamBold,
     BackgroundTransparency = 1,
     AutomaticSize = Enum.AutomaticSize.Y,
     TextWrapped = true
@@ -191,43 +180,12 @@ end
 function MakeWindow(Configs)
   local title = Configs.Hub.Title or "REDz HUB"
   local Anim_Title = Configs.Hub.Animation or "by : redz9999"
-  
-  local KeySystem = Configs.Key.KeySystem or false
-  local KeyTitle = Configs.Key.Title or "Key System"
-  local KeyDescription = Configs.Key.Description or ".-."
-  local KeyKey = Configs.Key.Keys or {"123", "321"}
-  local KeyLink = Configs.Key.KeyLink or ""
-  local KeyNotifications = Configs.Key.Notifi.Notifications or true
-  local KeyNotSuccess = Configs.Key.Notifi.Incorrectkey or "The key is incorrect"
-  local KeySuccess = Configs.Key.Notifi.CorrectKey or "Running the Script..."
-  local KeyCopyKeyLink = Configs.Key.Notifi.CopyKeyLink or "Copied to Clipboard"
-  
-  if KeySystem then
-    local KeyMenu = Create("Frame", ScreenGui, {
-      Size = UDim2.new(0, 400, 0, 220),
-      Position = UDim2.new(0.5, 0, 0.5, 0),
-      BackgroundColor3 = Configs_HUB.Cor_Hub,
-      AnchorPoint = Vector2.new(0.5, 0.5),
-      Active = true,
-      Draggable = true
-    })Corner(KeyMenu)
-    
-    local CloseButton = Create("TextButton", KeyMenu, {
-      Size = UDim2.new(0, 30, 0, 30),
-      Position = UDim2.new(1, -10, 0, 5),
-      AnchorPoint = Vector2.new(1, 0),
-      Text = "X",
-      Font = Enum.Font.FredokaOne,
-      TextScaled = true,
-      TextColor3 = Color3.fromRGB(240, 0, 0),
-      BackgroundTransparency = 1,
-    })Corner(CloseButton)
-    
+      
     local Title = Create("TextLabel", KeyMenu, {
-      Size = UDim2.new(1, -80, 0, 20),
+      Size = UDim2.new(1, -40, 0, 20),
       Position = UDim2.new(0, 20, 0, 5),
       Text = KeyTitle,
-      Font = Configs_HUB.Text_Font,
+      Font = Enum.Font.GothamBold,
       TextScaled = true,
       TextColor3 = Configs_HUB.Cor_Text,
       TextXAlignment = "Left",
@@ -239,7 +197,7 @@ function MakeWindow(Configs)
       Text = KeyDescription,
       TextSize = 17,
       TextColor3 = Configs_HUB.Cor_DarkText,
-      Font = Configs_HUB.Text_Font,
+      Font = Enum.Font.GothamBold,
       Position = UDim2.new(0, 20, 0, 25),
       TextXAlignment = "Left",
       AutomaticSize = "Y",
@@ -247,90 +205,17 @@ function MakeWindow(Configs)
       BackgroundTransparency = 1
     })
     
-    local ConfirmButton = Create("TextButton", KeyMenu, {
-      Text = "Confirm",
-      Font = Configs_HUB.Text_Font,
-      TextSize = 20,
-      TextColor3 = Configs_HUB.Cor_Text,
-      Size = UDim2.new(0, 150, 0, 40),
-      AnchorPoint = Vector2.new(1, 0),
-      Position = UDim2.new(1, -35, 0, 140),
-      BackgroundColor3 = Configs_HUB.Cor_Options
-    })Corner(ConfirmButton)
-    
-    local GetKeyLink = Create("TextButton", KeyMenu, {
-      Text = "Get Key Link",
-      Font = Configs_HUB.Text_Font,
-      TextSize = 20,
-      TextColor3 = Configs_HUB.Cor_Text,
-      Size = UDim2.new(0, 150, 0, 40),
-      Position = UDim2.new(0, 35, 0, 140),
-      BackgroundColor3 = Configs_HUB.Cor_Options
-    })Corner(GetKeyLink)
-    
-    local TextBox = Create("TextBox", KeyMenu, {
-      Size = UDim2.new(1, -70, 0, 40),
-      Position = UDim2.new(0, 35, 0, 90),
-      BackgroundColor3 = Configs_HUB.Cor_Options,
-      PlaceholderText = "Put the Key here",
-      Text = "",
-      TextColor3 = Configs_HUB.Cor_Text,
-      Font = Configs_HUB.Text_Font,
-      TextSize = 25
-    })Corner(TextBox)
-    
-    local KeyVerify = false
-    CloseButton.MouseButton1Click:Connect(function()
-      local UIScale = Create("UIScale", ScreenGui)
-      CreateTween(UIScale, "Scale", 0, 0.20, true)
-      ScreenGui:Destroy()
-    end)
-    
-    ConfirmButton.MouseButton1Click:Connect(function()
-      for _,v in pairs(KeyKey) do
-        if TextBox.Text == v then
-          KeyVerify = true
-        end
-      end
-      if KeyNotifications and not KeyVerify then
-        MakeNotifi({
-          Title = KeyTitle,
-          Text = KeyNotSuccess,
-          Time = 5
-        })
-      elseif KeyNotifications then
-        MakeNotifi({
-          Title = KeyTitle,
-          Text = KeySuccess,
-          Time = 5
-        })
-      end
-    end)
-    
-    GetKeyLink.MouseButton1Click:Connect(function()
-      if KeyNotifications then
-        setclipboard(KeyLink)
-        MakeNotifi({
-          Title = KeyTitle,
-          Text = KeyCopyKeyLink,
-          Time = 5
-        })
-      end
-    end)
-    
-    repeat task.wait()
-    until KeyVerify
-    local UIScale = Create("UIScale", KeyMenu)
-    CreateTween(UIScale, "Scale", 0, 0.40, true)
-    KeyMenu:Destroy()
-  end
-  
   local Menu = Create("Frame", ScreenGui, {
     BackgroundColor3 = Configs_HUB.Cor_Hub,
     Position = UDim2.new(0.5, -500/2, 0.5, -270/2),
     Active = true,
     Draggable = true
   })Corner(Menu)
+  
+  local Stroke = Instance.new("UIStroke")
+    Stroke.Color = Color3.fromRGB(59, 130, 246) -- Tailwind Blue-500
+    Stroke.Thickness = 2
+    Stroke.Parent = Menu
   
   local TopBar = Create("Frame", Menu, {
     BackgroundTransparency = 1,
@@ -345,17 +230,11 @@ function MakeWindow(Configs)
     BackgroundTransparency = 1
   })
   
-  local outline = Instance.new("UIStroke")
-    outline.Color = Color3.fromRGB(255, 255, 255) 
-    outline.Thickness = 2
-    outline.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
-    outline.Parent = ButtonsFrame
-  
   local Title = Create("TextLabel", TopBar, {
     Size = UDim2.new(1, 0, 1, 0),
     Position = UDim2.new(0, 20, 0, 0),
     TextColor3 = Configs_HUB.Cor_Text,
-    Font = Configs_HUB.Text_Font,
+    Font = Enum.Font.GothamBold,
     TextXAlignment = "Left",
     Text = title,
     TextSize = 20,
@@ -366,8 +245,9 @@ function MakeWindow(Configs)
     Text = "-",
     TextColor3 = Configs_HUB.Cor_Text,
     Size = UDim2.new(0.5, 0, 1, 0),
+    Position = UDim2.new(1, -18, 0.1, 0),
     BackgroundTransparency = 1,
-    Font = Configs_HUB.Text_Font,
+    Font = Enum.Font.GothamBold,
     TextYAlignment = "Bottom",
     TextSize = 25
   })
@@ -383,106 +263,7 @@ function MakeWindow(Configs)
       CreateTween(Menu, "Size", UDim2.new(0, 500, 0, 25), 0.15, true)
     end
   end)
-  
-  local Close_Button = Create("TextButton", ButtonsFrame, {
-    Text = "×",
-    TextYAlignment = "Bottom",
-    TextColor3 = Configs_HUB.Cor_Text,
-    Size = UDim2.new(0.5, 0, 1, 0),
-    AnchorPoint = Vector2.new(1, 0),
-    Position = UDim2.new(1, 0, 0, 0),
-    BackgroundTransparency = 1,
-    Font = Configs_HUB.Text_Font,
-    TextSize = 25
-  })
-  
-  local function CreateClose()
-    IsMinimized = false
-    CreateTween(Menu, "Size", UDim2.new(0, 500, 0, 270), 0.3, false)
-    local CloseGui = Create("TextButton", Menu, {
-      BackgroundTransparency = 0.5,
-      BackgroundColor3 = Configs_HUB.Cor_Hub,
-      Size = UDim2.new(1, 0, 1, 0),
-      AutoButtonColor = false,
-      Text = "",
-      BackgroundTransparency = 0.5,
-      Visible = false
-    })Corner(CloseGui)
     
-    local CloseMenu = Create("Frame", CloseGui, {
-      Size = UDim2.new(),
-      AnchorPoint = Vector2.new(0.5, 0.5),
-      Position = UDim2.new(0.5, 0, 0.5, 0),
-      Transparency = 1,
-      BackgroundColor3 = Configs_HUB.Cor_Hub
-    })Corner(CloseMenu)Stroke(CloseMenu)
-    
-    local Mensage = Create("TextLabel", CloseMenu, {
-      Size = UDim2.new(0.8, 0, 0.25, 0),
-      Text = "are you sure you want to close this script??",
-      Position = UDim2.new(0.1, 0, 0.2),
-      TextColor3 = Configs_HUB.Cor_Text,
-      Font = Configs_HUB.Text_Font,
-      TextScaled = true,
-      BackgroundTransparency = 1
-    })
-    
-    local Confirm = Create("TextButton", CloseMenu, {
-      Size = UDim2.new(0.35, 0, 0.3, 0),
-      Position = UDim2.new(0.1, 0, 0.5, 0),
-      BackgroundColor3 = Configs_HUB.Cor_Hub,
-      Text = "Close Script",
-      Font = Configs_HUB.Text_Font,
-      TextColor3 = Color3.fromRGB(240, 0, 0),
-      TextSize = 20
-    })Corner(Confirm)Stroke(Confirm)
-    
-    local Cancel = Create("TextButton", CloseMenu, {
-      Size = UDim2.new(0.35, 0, 0.3, 0),
-      Position = UDim2.new(0.9, 0, 0.5, 0),
-      AnchorPoint = Vector2.new(1, 0),
-      BackgroundColor3 = Configs_HUB.Cor_Hub,
-      Text = "Cancel",
-      Font = Configs_HUB.Text_Font,
-      TextColor3 = Color3.fromRGB(0, 240, 0),
-      TextSize = 20
-    })Corner(Cancel)Stroke(Cancel)
-    
-    local function SetVisible()
-      if Menu.Size.Y.Offset > 100 then
-        CloseGui.Visible = true
-      else
-        CloseGui.Visible = false
-      end
-    end
-    
-    SetVisible()
-    Menu:GetPropertyChangedSignal("Size"):Connect(SetVisible)
-    
-    CreateTween(CloseMenu, "Transparency", 0, 0.2, false)
-    CreateTween(CloseMenu, "Size", UDim2.new(0.7, 0, 0.7, 0), 0.2, false)
-    
-    Cancel.MouseButton1Click:Connect(function()
-      CreateTween(CloseMenu, "Transparency", 1, 0.3, false)
-      CreateTween(CloseMenu, "Size", UDim2.new(), 0.2, true)
-      CloseGui:Destroy()
-    end)
-    
-    Confirm.MouseButton1Click:Connect(function()
-      CloseGui:Destroy()
-      CreateTween(Menu, "Size", UDim2.new(), 0.3, true)
-      DestroyScript()
-    end)
-    
-    CloseGui.MouseButton1Click:Connect(function()
-      CreateTween(CloseMenu, "Transparency", 1, 0.3, false)
-      CreateTween(CloseMenu, "Size", UDim2.new(), 0.2, true)
-      CloseGui:Destroy()
-    end)
-  end
-  
-  Close_Button.MouseButton1Click:Connect(CreateClose)
-  
   local AnimMenu = Create("Frame", ScreenGui, {
     Position = UDim2.new(0.5, 0, 0.5, 0),
     AnchorPoint = Vector2.new(0.5, 0.5),
@@ -494,7 +275,7 @@ function MakeWindow(Configs)
     BackgroundTransparency = 1,
     Size = UDim2.new(1, 0, 1, 0),
     Visible = false,
-    Font = Configs_HUB.Text_Font,
+    Font = Enum.Font.GothamBold,
     TextTransparency = 1,
     TextColor3 = Configs_HUB.Cor_Text,
     Position = UDim2.new(0, 10, 0, 0),
@@ -630,7 +411,7 @@ function MakeWindow(Configs)
     local TextLabel = Create("TextLabel", Frame, {
       Size = UDim2.new(1, 0, 1, 0),
       BackgroundTransparency = 1,
-      Font = Configs_HUB.Text_Font,
+      Font = Enum.Font.GothamBold,
       TextColor3 = textcolor,
       TextSize = textsize,
       Text = TabName
@@ -698,16 +479,16 @@ function MakeWindow(Configs)
       TextColor3 = Configs_HUB.Cor_Text,
       Text = ButtonName,
       Size = UDim2.new(1, 0, 1, 0),
-      Position = UDim2.new(0, 35, 0, 0),
+      Position = UDim2.new(0, 9, 0, 0),
       BackgroundTransparency = 1,
       TextXAlignment = "Left",
-      Font = Configs_HUB.Text_Font
+      Font = Enum.Font.GothamBold
     })
     
     local ImageLabel = Create("ImageLabel", TextButton, {
-      Image = "rbxassetid://15155219405",
+      Image = "rbxassetid://18271082015",
       Size = UDim2.new(0, 20, 0, 20),
-      Position = UDim2.new(0, 5, 0, 2.5),
+      Position = UDim2.new(1, -30, 0, 2.5),
       BackgroundTransparency = 1,
       ImageColor3 = Configs_HUB.Cor_Stroke
     })
@@ -739,15 +520,15 @@ function MakeWindow(Configs)
       TextColor3 = Configs_HUB.Cor_Text,
       Text = ToggleName,
       Size = UDim2.new(1, 0, 1, 0),
-      Position = UDim2.new(0, 35, 0, 0),
+      Position = UDim2.new(0, 9, 0, 0),
       BackgroundTransparency = 1,
       TextXAlignment = "Left",
-      Font = Configs_HUB.Text_Font
+      Font = Enum.Font.GothamBold
     })
     
     local Frame1 = Create("Frame", TextButton, {
-      Size = UDim2.new(0, 25, 0, 15),
-      Position = UDim2.new(0, 5, 0, 5),
+      Size = UDim2.new(0, 30, 0, 15),
+      Position = UDim2.new(1, -35, 0, 5),
       BackgroundTransparency = 1,
     })Corner(Frame1, {CornerRadius = UDim.new(1, 0)})
     local Stroke = Stroke(Frame1, {Thickness = 2})
@@ -762,7 +543,7 @@ function MakeWindow(Configs)
     local OnOff = false
     if Default then
       OnOff = true
-      CreateTween(Frame2, "Position", UDim2.new(0, 10, 0.5, 0), 0.2, false)
+      CreateTween(Frame2, "Position", UDim2.new(0, 15, 0.5, 0), 0.2, false)
       CreateTween(Frame2, "BackgroundColor3", Color3.fromRGB(28, 120, 212), 0.2, false)
       CreateTween(Stroke, "Color", Color3.fromRGB(28, 120, 212), 0.2, false)
       CreateTween(TextLabel, "TextColor3", Color3.fromRGB(28, 120, 212), 0.2, false)
@@ -771,7 +552,7 @@ function MakeWindow(Configs)
     TextButton.MouseButton1Click:Connect(function()
       if Frame2.Position.X.Offset < 5 then
         OnOff = true
-        CreateTween(Frame2, "Position", UDim2.new(0, 10, 0.5, 0), 0.2, false)
+        CreateTween(Frame2, "Position", UDim2.new(0, 15, 0.5, 0), 0.2, false)
         CreateTween(Frame2, "BackgroundColor3", Color3.fromRGB(28, 120, 212), 0.2, false)
         CreateTween(Stroke, "Color", Color3.fromRGB(28, 120, 212), 0.2, false)
         CreateTween(TextLabel, "TextColor3", Color3.fromRGB(28, 120, 212), 0.2, false)
@@ -794,7 +575,7 @@ function MakeWindow(Configs)
     local visible = Configs.Visible or false
     
     local Toggle_Atalho = Create("Frame", ScreenGui, {
-      Size = UDim2.new(0, 100, 0, 60),
+      Size = UDim2.new(0, 300, 0, 60),
       Position = UDim2.new(0.8, 0, 0.8, 0),
       AnchorPoint = Vector2.new(0.5, 0.5),
       BackgroundColor3 = Configs_HUB.Cor_Hub,
@@ -806,7 +587,7 @@ function MakeWindow(Configs)
     local TextLabel = Create("TextLabel", Toggle_Atalho, {
       Size = UDim2.new(1, 0, 0, 20),
       TextSize = 20,
-      Font = Configs_HUB.Text_Font,
+      Font = Enum.Font.GothamBold,
       TextColor3 = Configs_HUB.Cor_Text,
       Text = name,
       BackgroundTransparency = 1
@@ -899,17 +680,17 @@ function MakeWindow(Configs)
       TextColor3 = Configs_HUB.Cor_Text,
       Text = SliderName,
       Size = UDim2.new(1, 0, 1, 0),
-      Position = UDim2.new(0, 150, 0, 0),
+      Position = UDim2.new(0, 9, 0, 0),
       BackgroundTransparency = 1,
       TextXAlignment = "Left",
-      Font = Configs_HUB.Text_Font
+      Font = Enum.Font.GothamBold
     })TextSetColor(TextLabel)
     
     local TextLabelNumber = Create("TextLabel", Frame, {
-      Font = Configs_HUB.Text_Font,
+      Font = Enum.Font.GothamBold,
       Size = UDim2.new(0, 20, 0, 20),
-      Text = "...",
-      Position = UDim2.new(0, 5, 0, 2.5),
+      Text = "",
+      Position = UDim2.new(0, 190, 0, 2.5),
       TextScaled = true,
       TextColor3 = Configs_HUB.Cor_Text,
       BackgroundTransparency = 1
@@ -917,7 +698,7 @@ function MakeWindow(Configs)
     
     local SliderBar1 = Create("TextLabel", Frame, {
       Size = UDim2.new(0, 100, 0, 7.5),
-      Position = UDim2.new(0, 35, 0.5, 0),
+      Position = UDim2.new(0, 220, 0.5, 0),
       AnchorPoint = Vector2.new(0, 0.5),
       BackgroundColor3 = Configs_HUB.Cor_Stroke,
       Text = ""
@@ -1016,11 +797,11 @@ function MakeWindow(Configs)
       Position = UDim2.new(0, 35, 0, 0),
       BackgroundTransparency = 1,
       TextXAlignment = "Left",
-      Font = Configs_HUB.Text_Font
+      Font = Enum.Font.GothamBold
     })
     
     local Keybind = Create("TextLabel", Frame, {
-      Font = Configs_HUB.Text_Font,
+      Font = Enum.Font.GothamBold,
       Size = UDim2.new(0, 18, 0, 18),
       Text = KeyCode,
       Position = UDim2.new(0, 5, 0, 3.5),
@@ -1057,22 +838,22 @@ function MakeWindow(Configs)
       TextColor3 = Configs_HUB.Cor_Text,
       Text = TextBoxName,
       Size = UDim2.new(1, 0, 1, 0),
-      Position = UDim2.new(0, 150, 0, 0),
+      Position = UDim2.new(0, 9, 0, 0),
       BackgroundTransparency = 1,
       TextXAlignment = "Left",
-      Font = Configs_HUB.Text_Font
+      Font = Enum.Font.GothamBold
     })
     TextSetColor(TextLabel)
     
     local TextBox = Create("TextBox", Frame, {
       Size = UDim2.new(0, 120, 0, 20),
-      Position = UDim2.new(0, 15, 0, 2.5),
+      Position = UDim2.new(0, 200, 0, 2.5),
       TextColor3 = Configs_HUB.Cor_Text,
       Text = Default,
       ClearTextOnFocus = ClearText,
       PlaceholderText = placeholderText,
       TextScaled = true,
-      Font = Configs_HUB.Text_Font,
+      Font = Enum.Font.GothamBold,
       BackgroundTransparency = 1
     })
     
@@ -1120,7 +901,7 @@ function MakeWindow(Configs)
       TextColor3 = Configs_HUB.Cor_Text,
       TextXAlignment = "Left",
       Text = name,
-      Font = Configs_HUB.Text_Font,
+      Font = Enum.Font.GothamBold,
       BackgroundTransparency = 1
     })
     
@@ -1265,10 +1046,10 @@ function MakeWindow(Configs)
       TextColor3 = Configs_HUB.Cor_Text,
       Text = DropdownName,
       Size = UDim2.new(1, 0, 0, 25),
-      Position = UDim2.new(0, 35, 0, 0),
+      Position = UDim2.new(0, 9, 0, 0),
       BackgroundTransparency = 1,
       TextXAlignment = "Left",
-      Font = Configs_HUB.Text_Font
+      Font = Enum.Font.GothamBold
     })TextSetColor(TextLabel)
     
     local Line = Create("Frame", TextButton, {
@@ -1282,19 +1063,19 @@ function MakeWindow(Configs)
     local Arrow = Create("ImageLabel", TextButton, {
       Image = "rbxassetid://6031090990",
       Size = UDim2.new(0, 25, 0, 25),
-      Position = UDim2.new(0, 5, 0, 0),
+      Position = UDim2.new(1, -30, 0, 0),
       BackgroundTransparency = 1
     })
     
     local DefaultText = Create("TextLabel", TextButton, {
       BackgroundColor3 = Configs_HUB.Cor_Hub,
       BackgroundTransparency = 0.1,
-      Position = UDim2.new(1, -20, 0, 2.5),
+      Position = UDim2.new(1, -33, 0, 2.5),
       AnchorPoint = Vector2.new(1, 0),
       Size = UDim2.new(0, 100, 0, 20),
       TextColor3 = Configs_HUB.Cor_DarkText,
       TextScaled = true,
-      Font = Configs_HUB.Text_Font,
+      Font = Enum.Font.GothamBold,
       Text = "..."
     })Corner(DefaultText)Stroke(DefaultText)
     
@@ -1319,7 +1100,7 @@ function MakeWindow(Configs)
       local TextButton = Create("TextButton", ScrollBar, {
         Size = UDim2.new(1, 0, 0, 15),
         Text = OptionName,
-        Font = Configs_HUB.Text_Font,
+        Font = Enum.Font.GothamBold,
         TextSize = 12,
         TextColor3 = Color3.fromRGB(180, 180, 180),
         BackgroundTransparency = 1
@@ -1393,7 +1174,7 @@ function MakeWindow(Configs)
       local TextButton = Create("TextButton", ScrollBar, {
         Size = UDim2.new(1, 0, 0, 15),
         Text = OptionName,
-        Font = Configs_HUB.Text_Font,
+        Font = Enum.Font.GothamBold,
         TextSize = 12,
         TextColor3 = Color3.fromRGB(180, 180, 180),
         BackgroundTransparency = 1
@@ -1447,7 +1228,7 @@ function MakeWindow(Configs)
       Position = UDim2.new(0, 20, 0, 0),
       BackgroundTransparency = 1,
       TextXAlignment = "Left",
-      Font = Configs_HUB.Text_Font
+      Font = Enum.Font.GothamBold
     })
     TextSetColor(TextButton)
     return TextButton
@@ -1473,7 +1254,7 @@ function MakeWindow(Configs)
       Text = LabelName,
       Size = UDim2.new(1, 0, 0, 25),
       BackgroundTransparency = 1,
-      Font = Configs_HUB.Text_Font
+      Font = Enum.Font.GothamBold
     })
     
     local ImageLabel = Create("ImageLabel", Frame, {
@@ -1512,7 +1293,7 @@ function MakeWindow(Configs)
       BackgroundTransparency = 1,
       TextXAlignment = "Left",
       TextYAlignment = "Top",
-      Font = Configs_HUB.Text_Font,
+      Font = Enum.Font.GothamBold,
       TextWrapped = true
     })TextSetColor(TextButton)
     
@@ -1526,7 +1307,7 @@ function MakeWindow(Configs)
       TextColor3 = Configs_HUB.Cor_DarkText,
       TextSize = 11,
       Text = ParagraphName2,
-      Font = Configs_HUB.Text_Font,
+      Font = Enum.Font.GothamBold,
       TextWrapped = true
     })
     return {TextButton, TextLabel}
@@ -1555,7 +1336,7 @@ function MakeWindow(Configs)
       Position = UDim2.new(0, 10, 0, 0),
       BackgroundTransparency = 1,
       TextXAlignment = "Left",
-      Font = Configs_HUB.Text_Font
+      Font = Enum.Font.GothamBold
     })
     return TextButton
   end
