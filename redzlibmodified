@@ -55,7 +55,7 @@ local redzlib = {
 				ColorSequenceKeypoint.new(1.00, Color3.fromRGB(16, 16, 16))
 			}),
 			["Color Hub 2"] = Color3.fromRGB(16, 16, 16),
-			["Color Stroke"] = Color3.fromRGB(243, 243, 243),
+			["Color Stroke"] = Color3.fromRGB(180, 180, 180),
 			["Color Theme"] = Color3.fromRGB(16, 16, 16),
 			["Color Text"] = Color3.fromRGB(243, 243, 243),
 			["Color Dark Text"] = Color3.fromRGB(180, 180, 180)
