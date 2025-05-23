@@ -54,6 +54,7 @@ local makefolder = makefolder or make_folder or createfolder or create_folder
 
 if not isfolder("Shaman") then
 local download = Instance.new("ScreenGui")
+ScreenGui.Name = "BaseplateUI"
 download.Name = "Download"
 download.Enabled = true
 download.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
@@ -168,10 +169,12 @@ Info.Text = Info.Text or "Shaman"
 local window = {}
 
 local shamanScreenGui = Instance.new("ScreenGui")
+ScreenGui.Name = "BaseplateUI"
 shamanScreenGui.Name = "Shaman"
 shamanScreenGui.Parent = CoreGui
 
 local tooltipScreenGui = Instance.new("ScreenGui")
+ScreenGui.Name = "BaseplateUI"
 tooltipScreenGui.Name = "Tooltips"
 tooltipScreenGui.Parent = CoreGui
 
@@ -1848,19 +1851,17 @@ end
 
 return library
 
-local uiVisible = true  -- default visible
+local UserInputService = game:GetService("UserInputService")
+local isVisible = true
 
--- Thread to listen for key press
-Citizen.CreateThread(function()
-    while true do
-        Citizen.Wait(0)
-        -- 244 is the key code for M
-        if IsControlJustPressed(0, 244) then
-            uiVisible = not uiVisible
-            SetNuiFocus(uiVisible, uiVisible)
-            SendNUIMessage({
-                type = uiVisible and "show" or "hide"
-            })
+UserInputService.InputBegan:Connect(function(input, gameProcessed)
+    if gameProcessed then return end
+    if input.KeyCode == Enum.KeyCode.M then
+        isVisible = not isVisible
+        for _, ui in pairs(game:GetService("CoreGui"):GetChildren()) do
+            if ui:IsA("ScreenGui") and ui:FindFirstChild("BaseplateUI") then
+                ui.Enabled = isVisible
+            end
         end
     end
 end)
